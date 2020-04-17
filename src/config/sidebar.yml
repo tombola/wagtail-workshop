@@ -4,7 +4,7 @@
 #   link: '/'
 # - label: 'Getting started'
 #   link: '/getting-started'
-- label: Wagatail Course
+- label: Wagtail Course
   items:
     - label: 'Session 1. Local set up'
       link: '/wagtail-intro/local-set-up'
