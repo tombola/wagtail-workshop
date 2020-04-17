@@ -1,0 +1,460 @@
+ # Session 2 - Locally building our website
+
+
+For demo purposes, I'm calling my site `mysite`.
+
+Create a directory for our site
+```bash
+    cd ~
+    mkdir mysite
+    cd mysite
+```
+
+## Install and run Wagtail
+
+### Install dependencies
+
+Wagtail supports Python 3.5, 3.6, 3.7 and 3.8.
+
+To check whether you have an appropriate version of Python 3:
+```bash
+    python3 --version
+```
+
+If this does not return a version number or returns a version lower than 3.5, you will need to [install Python 3](https://www.python.org/downloads/).
+
+**Important:** Before installing Wagtail, it is necessary to install the libjpeg and zlib libraries, which provide support for working with JPEG, PNG and GIF images (via the Python Pillow library). The way to do this varies by platform—see [Pillow’s platform-specific installation instructions](https://pillow.readthedocs.org/en/latest/installation.html#external-libraries)
+
+### Create and activate a virtual environment
+
+We recommend using a virtual environment, which provides an isolated Python environment. This tutorial uses [venv](https://docs.python.org/3/tutorial/venv.html), which is packaged with Python 3.
+
+**On Windows** (cmd.exe):
+```bash
+    python3 -m venv mysite\env
+    mysite\env\Scripts\activate.bat
+```  
+
+**On Unix or MacOS** (bash):
+```bash
+    $ python3 -m venv mysite/env
+    $ source mysite/env/bin/activate
+```  
+
+**For other shells** see the [venv documentation](https://docs.python.org/3/library/venv.html).
+
+Note
+
+If you’re using version control (e.g. git), `mysite` will be the directory for your project. The `env` directory inside of it should be excluded from any version control, but we will set up the gitignore for this later
+
+### Install Wagtail
+
+Use pip, which is packaged with Python, to install Wagtail and its dependencies:
+```bash
+    $ pip install wagtail
+```  
+
+### Generate your site
+
+Wagtail provides a `start` command similar to `django-admin startproject`. Running `wagtail start mysite` in your project will generate a new `mysite` folder with a few Wagtail-specific extras, including the required project settings, a “home” app with a blank `HomePage` model and basic templates, and a sample “search” app.
+
+Because the folder `mysite` was already created by `venv`, run `wagtail start` with an additional argument to specify the destination directory:
+```bash
+    $ wagtail start mysite mysite
+```
+
+### Install project dependencies
+```bash
+    $ cd mysite
+    $ pip install -r requirements.txt
+```   
+
+This ensures that you have the relevant versions of Wagtail, Django, and any other dependencies for the project you have just created.
+
+### Create the database
+
+If you haven’t updated the project settings, this will be a SQLite database file in the project directory.
+```bash
+    $ python manage.py migrate
+``` 
+
+### Create an admin user
+```bash
+    $ python manage.py createsuperuser
+```   
+
+### Start the server
+```bash
+    $ python manage.py runserver
+```
+
+If everything worked, [http://127.0.0.1:8000](http://127.0.0.1:8000/) will show you a welcome page:
+
+https://docs.wagtail.io/en/v2.8/_images/tutorial_1.png
+
+![https://docs.wagtail.io/en/v2.8/_images/tutorial_1.png](https://docs.wagtail.io/en/v2.8/_images/tutorial_1.png)
+
+You can now access the administrative area at [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin)
+
+https://docs.wagtail.io/en/v2.8/_images/tutorial_2.png
+
+![https://docs.wagtail.io/en/v2.8/_images/tutorial_2.png](https://docs.wagtail.io/en/v2.8/_images/tutorial_2.png)
+
+### Some dev work
+
+TODO The following example is for a blog, we should make this more relevant, like donation page or something
+
+### Edit the homepage model
+
+Out of the box, the “home” app defines a blank `HomePage` model in [`models.py`](http://models.py/), along with a migration that creates a homepage and configures Wagtail to use it.
+
+Edit `home/models.py` as follows, to add a `body` field to the model:
+```python
+    from wagtail.core.models import Page
+    from wagtail.core.fields import RichTextField
+    from wagtail.admin.edit_handlers import FieldPanel
+    class HomePage(Page):
+        body = RichTextField(blank=True)
+``` 
+
+Generate and run the migrations needed
+
+TODO: Explination of why we do this?
+
+TODO: Explanation of the [`manage.py`](http://manage.py/) file?
+
+Run `python [manage.py](http://manage.py/) makemigrations`, then python [`manage.py`](http://manage.py/) migrate to update the database with your model changes. You must run the above commands each time you make changes to the model definition.
+```bash
+    $ ./manage.py makemigrations
+    $ ./manage.py migrate
+``` 
+
+The above commands should do the following:
+
+- make a new migration file at mysite/home/migrations/003_homepage_body.py
+- Run the new migration file to populate or change the schema for the database
+```bash
+    (mysite-venv) kevin@mulder:~/shared/mysite/mysite
+    $ ./manage.py makemigrations Migrations for 'home': home/migrations/0003_homepage_body.py
+```
+   [TODO - There is a chnk Tolu has taken out.]
+Make the body field editable
+```python
+    class HomePage(Page):
+        body = RichTextField(blank=True)
+        content_panels = Page.content_panels + [
+            FieldPanel('body', classname="full"),
+        ]
+```
+    
+
+Check your terminal to see if the site is still running, if it isn't, run
+```bash
+    $ ./manage.py runserver
+```
+    
+
+It's a good idea to have two terminal windows open whilest developing
+
+Go to the local site in your browser at 0.0.0.0:8000 or 127.0.0.1, or [localhost:8000](http://localhost:8000/) (depending on local hosts setup)
+
+From the admin menu select pages > home.
+
+This will land you [http://0.0.0.0:8000/admin/pages/3/](http://0.0.0.0:8000/admin/pages/3/) which is your homepage. If there wheree child pages they would be listed here. Under the home title click 'edit' to edit the page. (note you can also do this straight from the admin menu by clicking page > then the small pencil icon.
+
+You should be on [http://0.0.0.0:8000/admin/pages/3/edit/](http://0.0.0.0:8000/admin/pages/3/edit/)
+
+Add some body text and select publish from the bottom bar.
+
+![https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBlmy9h29MYycmgPV%2FUntitled%201.png?generation=1585500595256164&alt=media](https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBlmy9h29MYycmgPV%2FUntitled%201.png?generation=1585500595256164&alt=media)
+
+### Update the template
+
+Edit `home/templates/home/home_page.html` to match (remove it all and replace it with this):
+```html
+    {% extends "base.html" %}
+    {% load wagtailcore_tags %}
+    {% block content %}
+        <h1>{{ self.title }}</h1>
+        {{ page.body|richtext }}
+    {% endblock %}
+```
+    
+
+Your homepage title and field should now show on the root page of your local site at 0.0.0.0 / 127.0.0.1
+
+### Create a blog app
+
+TODO explain what an 'app' is and why we call it an app.
+
+First we need to create the blog app. This is done via the [mange.py](http://mange.py/) file. It should be created at the site root:
+```bash
+    $ ./manage.py startapp blog
+```
+
+so your file structure should now be:
+```bash
+    $ tree -L 1
+    .
+    ├── blog # The blog app we just created
+    ├── db.sqlite3
+    ├── Dockerfile
+    ├── home
+    ├── manage.py
+    ├── mysite
+    ├── requirements.txt
+    └── search
+```  
+
+To view your file structure like above, type `tree -L 1` if you are using Windows, `brew install tree` and then `tree -L 1`  if you are using a Mac and `sudo apt-get install tree -y` followed by `tree -L 1` if you are using a Debian (Linux) machine.
+
+The startapp command generated an app with some boilerplate files for us:
+```bash
+    $ tree blog
+    blog
+    ├── admin.py
+    ├── apps.py
+    ├── __init__.py
+    ├── migrations
+    │   └── __init__.py
+    ├── models.py
+    ├── tests.py
+    └── views.py
+```
+
+Now we need to enable the blogby adding it to our site settings. add `blog` to `INSTALLED_APPS` in `mysite/settings/base.py`
+```python
+    # Application definition
+    INSTALLED_APPS = [
+        'home',
+        'search',
+        'blog',
+    ...
+```
+
+**Define the model for the blog index page**
+
+Edit `blog/models.py`:
+```python
+    from wagtail.core.models import Page
+    from wagtail.core.fields import RichTextField
+    from wagtail.admin.edit_handlers import FieldPanel
+    class BlogIndexPage(Page):
+        intro = RichTextField(blank=True)
+        content_panels = Page.content_panels + [
+            FieldPanel('intro', classname="full")
+        ]
+```
+    
+
+Similar to what we did earlier, run `./manage.py makemigrations` and `./manage.py migrate`. This will add define the schema in our database for the blog.
+
+After running this, go the the cms admin and add a child page to our homepage:
+
+![https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBlmuXphithpJ42K_%2Fcreating_blog_index.gif?generation=1585500595256307&alt=media](https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBlmuXphithpJ42K_%2Fcreating_blog_index.gif?generation=1585500595256307&alt=media)
+
+**Create a template for the blog index**
+
+Make a file at `blog/templates/blog/blog_index_page.html` with this content:
+```python
+    {% extends "base.html" %}
+    {% load wagtailcore_tags %}
+    {% block content %}
+        <h1>{{ page.title }}</h1>
+        <div class="intro">{{ page.intro|richtext }}</div>
+        {% for post in page.get_children %}
+            <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+            {{ post.specific.date }}
+        {% endfor %}
+    {% endblock %}
+```
+
+(Restart the local server if your template isn’t found by ctrl + c then ./manage.py runserver)
+
+**Add a model for blog posts**
+
+In `blog/models.py`:
+```python
+    from django.db import models
+    from wagtail.core.models import Page
+    from wagtail.core.fields import RichTextField
+    from wagtail.admin.edit_handlers import FieldPanel
+    class BlogIndexPage(Page):
+        intro = RichTextField(blank=True)
+        content_panels = Page.content_panels + [
+            FieldPanel('intro', classname="full")
+        ]
+    class BlogPage(Page):
+        date = models.DateField("Post date")
+        intro = models.CharField(max_length=250)
+        body = RichTextField(blank=True)
+        content_panels = Page.content_panels + [
+            FieldPanel('date'),
+            FieldPanel('intro'),
+            FieldPanel('body', classname="full"),
+        ]
+```
+    
+
+Same again, run`./manage.py makemigrations` and `./manage.py migrate` to create the database changes
+
+**Create a template for blog posts**
+
+Make a file at `blog/templates/blog/blog_page.html` with this content:
+```python
+    {% extends "base.html" %}
+    {% load wagtailcore_tags %}
+    {% block content %}
+        <h1>{{ page.title }}</h1>
+        <p class="meta">{{ page.date }}</p>    
+        <div class="intro">{{ page.intro }}</div>
+        {{ page.body|richtext }}
+        <p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
+    {% endblock %}
+```  
+
+Now we can add a blog page as a child of our blog index:
+
+![https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBlmvA1QHrnV-pgfK%2Fcreating_blog_page.gif?generation=1585500595263711&alt=media](https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBlmvA1QHrnV-pgfK%2Fcreating_blog_page.gif?generation=1585500595263711&alt=media)
+
+Let's see what we have by going to our admin and checking the front end of the pages we created:
+
+![https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBlnBWpwfrEwbMUOt%2Fviewing_editing.gif?generation=1585500595304421&alt=media](https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBlnBWpwfrEwbMUOt%2Fviewing_editing.gif?generation=1585500595304421&alt=media)
+
+## Improve the blog listing
+
+Posts should be in reverse chronological order, and we should only list published content. Edit `models.py`, adding this `get_context` method to the `BlogIndexPage` class:
+```python
+    def get_context(self, request):
+        # Update context to include only published posts, 
+        # in reverse chronological order
+        context = super(BlogIndexPage, self).get_context(request)
+        live_blogpages = self.get_children().live()
+        context['blogpages'] = live_blogpages.order_by('-first_published_at')
+        return context
+```
+    
+
+and update your blog index template to loop over `blogpages` instead of `page.get_children`.
+
+[TODO Tolu - show how to change loop]
+
+## Add an image to your blog post model
+```python
+    # in the imports
+    from wagtail.images.edit_handlers import ImageChooserPanel
+    # in your BlogPage class
+    image = models.ForeignKey(
+            'wagtailimages.Image',
+            null=True,
+            blank=True,
+            on_delete=models.SET_NULL
+        )
+    # in your content_panels for BlogPage
+    ImageChooserPanel('image'),
+```
+    
+
+Again, because we added a field to hold data... run `./manage.py makemigrations` and `./manage.py migrate`
+
+## Update the blog post template to output images
+```python
+    {% extends "base.html" %}
+    {% load wagtailcore_tags wagtailimages_tags %}
+    {% block content %}
+        <h1>{{ page.title }}</h1>
+        <p class="meta">{{ page.date }}</p>
+        {% image page.image fill-320x320 %}
+        <div class="intro">{{ page.intro }}</div>
+        {{ page.body|richtext }}
+        <p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
+    {% endblock %}
+```
+
+`fill` is just one of Wagtail's image resizing methods. Details of the others are listed in [the docs](http://docs.wagtail.io/en/latest/topics/images.html). Try them out!
+
+### Basic styling
+
+TODO Maybe explain here templates and template inheritance?
+
+Add [tachyons](https://tachyons.io/) to `mysite/templates/base.html`, before `{# Global stylesheets #}`:
+```html
+    <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
+    <!-- Tachyons CSS minified -->
+    <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
+```
+
+wrap the content block in a container div and add the tachyons classes to style the widths of the container:
+
+{% block content %}{% endblock %}
+
+Add some css styling to your custom css file at `[mysite]/static/css/[mysite].css`
+
+I'm just going to make the body colour grey.
+```css
+    body{
+        background: #ccc;
+    }
+```  
+
+## Committing our code to git
+
+Create a .gitignore file in the project root and add the following
+```bash
+    *.swp
+    *.pyc
+    .DS_Store
+    /.coverage
+    /dist/
+    /build/
+    /MANIFEST
+    /wagtail.egg-info/
+    /docs/_build/
+    /.tox/
+    /venv
+    /node_modules/
+    npm-debug.log*
+    *.idea/
+    /*.egg/
+    /.cache/
+    /.pytest_cache/
+    db.sqlite3
+    /media/
+    /static/
+    ### JetBrains
+    .idea/
+    *.iml
+    *.ipr
+    *.iws
+    coverage/
+    client/node_modules
+    ### vscode
+    .vscode
+```
+
+This will stop us committing files to git that we don't really need.
+
+**Set up the project first in github**
+
+Head to [github.com](http://github.com/) and create a repo for your code. I've called mine 'codersofcolor'
+
+After creating your repo you will see some information:
+
+![https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBln2f2_qjc-0OXZL%2FUntitled%202.png?generation=1585500595260311&alt=media](https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBln2f2_qjc-0OXZL%2FUntitled%202.png?generation=1585500595260311&alt=media)
+
+We'll use this to add to our local repo so we can push code to github
+
+now in the project root, we need to initialize the git repository, and add our first initil commit, and push the code
+```bash
+    $ git init
+    $ git add . # the dot means all uncommitted files
+    $ git commit -m "Initial :tada:" # I just like emojis, that's what tada is.
+    $ git remote add origin https://github.com/kevinhowbrook/codersofcolor.git # replace your origin here
+    $ git push -u origin master
+```  
+
+If all went well... when you go back to the github page and refresh, you should see all your code.
+
+![https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBln3O-PTZPirqwiB%2FUntitled%203.png?generation=1585500595261358&alt=media](https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBln3O-PTZPirqwiB%2FUntitled%203.png?generation=1585500595261358&alt=media)
+
+Task : Locally add a [README.md](http://readme.md/) file in the project root and push it up to github.

@@ -1,0 +1,70 @@
+# Additions for those ahead
+
+# Further improvement suggestions if people are ahead:
+
+- Implement tagging [https://docs.wagtail.io/en/v2.8/getting_started/tutorial.html#tagging-posts](https://docs.wagtail.io/en/v2.8/getting_started/tutorial.html#tagging-posts)
+- Categories [https://docs.wagtail.io/en/v2.8/getting_started/tutorial.html#categories](https://docs.wagtail.io/en/v2.8/getting_started/tutorial.html#categories)
+
+## StreamField (Extra step - optional)
+
+Will need an explination of what streamfield is.
+
+To convert the body field of your blog post from a rich text field to a StreamField, update `blog/models.py`
+```python
+    # to your imports, add:
+    from wagtail.core.fields import StreamField
+    from wagtail.core import blocks
+    from wagtail.admin.edit_handlers import StreamFieldPanel
+    from wagtail.embeds.blocks import EmbedBlock
+    # convert your blog's body to a StreamField:
+    body = StreamField([
+        ('heading', blocks.CharBlock(classname="full title", icon="title")),
+        ('paragraph', blocks.RichTextBlock(icon="pilcrow")),
+        ('embed', EmbedBlock(icon="media")),
+    ])
+    # and, in content_panels, convert body's FieldPanel into a StreamFieldPanel:
+    StreamFieldPanel('body')
+```  
+
+Update your blog page template to output the new field type, replacing `{{ page.body|richtext }}` with
+```python
+    {% for child in self.body %} 
+        {% if child.block_type == 'heading' %}
+            <h2>{{ child }}</h2>
+        {% else %}
+            {{ child }}
+        {% endif %} 
+    {% endfor %}
+```    
+
+Note the [docs for responsive embeds](http://docs.wagtail.io/en/latest/topics/writing_templates.html?highlight=responsive#responsive-embeds).
+
+## Third party apps (Extra step - optional)
+
+### Awesome Wagtail
+
+[https://github.com/springload/awesome-wagtail](https://github.com/springload/awesome-wagtail)
+
+### Wagtail menus
+
+Follow the installation instructions at [wagtailmenus.readthedocs.io](http://wagtailmenus.readthedocs.io/en/latest/installation.html).
+
+Basic menu styling:
+```css
+    .menu ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+    .menu li {
+        float: left;
+    }
+    .menu li a {
+        display: block;
+        color: black;
+        padding-left: 0px;
+        padding-right: 16px;
+        text-decoration: none;
+    }
+```
