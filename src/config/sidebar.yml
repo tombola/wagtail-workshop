@@ -1,7 +1,7 @@
 # Sidebar navigation
 
-# - label: 'Introduction'
-#   link: '/'
+- label: 'Introduction'
+  link: '/'
 # - label: 'Getting started'
 #   link: '/getting-started'
 - label: Local set up
