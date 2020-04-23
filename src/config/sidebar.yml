@@ -4,10 +4,12 @@
 #   link: '/'
 # - label: 'Getting started'
 #   link: '/getting-started'
-- label: Wagtail Course
+- label: Local set up
   items:
     - label: 'Session 1. Local set up'
       link: '/wagtail-intro/local-set-up'
+- label: Wagtail Course
+  items:
     - label: 'Session 2 - Locally building our website'
       link: '/wagtail-intro/locally-building-our-website'
     - label: 'Session 3 - Production and Deployment'
@@ -18,5 +20,8 @@
       link: '/wagtail-intro/Additions-for-those-ahead'
     - label: 'Session 5 - Configuring a live URL'
       link: '/wagtail-intro/Session-5-Configuring-a-live-URL'
+- label: Further additions to your site
+  items:
     - label: 'Further Additions'
       link: '/wagtail-intro/Further-additions'
+    
