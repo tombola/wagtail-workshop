@@ -18,7 +18,7 @@ module.exports = {
       options: {
         configPath: `src/config`,
         docsPath: `src/docs`,
-        githubUrl: `https://github.com/tolulope/intro-wagatil`,
+        githubUrl: `https://github.com/tolulope/intro-wagtail`,
         baseDir: `examples/gatsby-theme-docs`,
       },
     },
