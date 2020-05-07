@@ -1,16 +1,16 @@
 module.exports = {
   siteMetadata: {
-    siteTitle: `Introduction to Wagtail`,
-    defaultTitle: `Introduction to Wagtail`,
+    siteTitle: `Introduction to Wagtail | Coders of Colour`,
+    defaultTitle: `Introduction to Wagtail | Coders of Colour`,
     siteTitleShort: `wagtail-intro`,
-    siteDescription: `Out of the box Gatsby Theme for creating documentation websites easily and quickly`,
-    siteUrl: `https://rocketdocs.netlify.com`,
+    siteDescription: `Introduction to Wagtail Course by Kevin Howbrook and Coders of Colour`,
+    siteUrl: `https://intro-wagtail.netlify.com`,
     siteAuthor: `@rocketseat`,
-    siteImage: `/banner.png`,
+    siteImage: `/coclogo.png`,
     siteLanguage: `en`,
     themeColor: `#7159c1`,
     basePath: `/`,
-    footer: `Theme by Rocketseat`,
+    footer: `Introduction to Wagtail | Coders of Colour`,
   },
   plugins: [
     {
@@ -18,7 +18,7 @@ module.exports = {
       options: {
         configPath: `src/config`,
         docsPath: `src/docs`,
-        githubUrl: `https://github.com/rocketseat/gatsby-themes`,
+        githubUrl: `https://github.com/tolulope/intro-wagatil`,
         baseDir: `examples/gatsby-theme-docs`,
       },
     },
@@ -30,7 +30,7 @@ module.exports = {
         start_url: `/`,
         background_color: `#ffffff`,
         display: `standalone`,
-        icon: `static/favicon.png`,
+        icon: `static/coclogo.png`,
       },
     },
     `gatsby-plugin-sitemap`,
@@ -43,7 +43,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-canonical-urls`,
       options: {
-        siteUrl: `https://rocketdocs.netlify.com`,
+        siteUrl: `https://intro-wagtail.netlify.com`,
       },
     },
     `gatsby-plugin-offline`,
