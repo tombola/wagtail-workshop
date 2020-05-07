@@ -30,7 +30,7 @@ module.exports = {
         start_url: `/`,
         background_color: `#ffffff`,
         display: `standalone`,
-        icon: `static/cocwhite.png`,
+        icon: `static/coclwhite.png`,
       },
     },
     `gatsby-plugin-sitemap`,
