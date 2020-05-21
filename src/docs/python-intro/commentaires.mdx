@@ -1,0 +1,33 @@
+---
+title: "Commentaires"
+metaTitle: "Commentaires | Introduction à Python"
+metaDescription: 'Site web pour "Écrivez votre premier programme en Python" #SolidairePasSolitaire'
+---
+
+Tout ce qui suit un dièse (#) jusqu'à un retour à la ligne est un commentaire : ce n'est pas pris en compte par l'ordinateur. Mais cette règle ne s'applique pas lorsque le dièse est positionné dans une chaîne de caractères (entre quotes).
+
+Le but reste de produire du code compréhensible sans commentaire, mais ce texte affiché uniquement dans le code source, peut servir à expliquer à celui qui relit le code (y compris soi-même), les subtilités les moins évidentes de celui-ci.
+
+```python
+# Toute cette première ligne est un commentaire.
+print("Bonjour le monde") # Ceci est également un commentaire
+print("Bonjour"); print("Le monde"); # Ceci est une ligne comportant
+# plusieurs instructions
+print("Cette ligne ne contient pas de #commentaire")
+```
+
+### Commentaires de bloc
+
+Les commentaires de bloc (block comments en anglais) permettent de commenter plusieurs lignes. En Python, ils sont assurés par des triples apostrophes ou guillemets :
+
+```python
+print('début')
+'''
+Le paragraphe suivant est commenté
+sur plusieurs lignes
+'''
+print('fin')
+```
+
+Lisez plus : [Wikibooks](https://fr.wikibooks.org/wiki/Programmation_Python/Afficher_un_texte#Commentaires)
+

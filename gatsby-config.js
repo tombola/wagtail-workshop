@@ -4,8 +4,8 @@ module.exports = {
     defaultTitle: `Introduction to Wagtail | Coders of Colour`,
     siteTitleShort: `wagtail-intro`,
     siteDescription: `Introduction to Wagtail Course by Kevin Howbrook and Coders of Colour`,
-    siteUrl: `https://intro-wagtail.netlify.com`,
-    siteAuthor: `@rocketseat`,
+    siteUrl: `https://intro-wagtail.netlify.app`,
+    siteAuthor: `Kevin Howbrook & Tolulope Ogunremi`,
     siteImage: `/coclwhite.png`,
     siteLanguage: `en`,
     themeColor: `#7159c1`,
@@ -18,7 +18,7 @@ module.exports = {
       options: {
         configPath: `src/config`,
         docsPath: `src/docs`,
-        githubUrl: `https://github.com/tolulope/intro-wagtail`,
+        githubUrl: `http://github.com/tolulope/wagtail-workshop`,
         baseDir: `examples/gatsby-theme-docs`,
       },
     },
@@ -43,7 +43,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-canonical-urls`,
       options: {
-        siteUrl: `https://intro-wagtail.netlify.com`,
+        siteUrl: `https://intro-wagtail.netlify.app`,
       },
     },
     `gatsby-plugin-offline`,

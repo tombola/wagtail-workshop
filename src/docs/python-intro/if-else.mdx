@@ -1,0 +1,47 @@
+---
+title: "If/else"
+metaTitle: "If/else | Introduction à Python"
+metaDescription: 'Site web pour "Écrivez votre premier programme en Python" #SolidairePasSolitaire'
+---
+
+Cette notion est l'une des plus importante en programmation (Bill Gates en parle tout le temps). 
+
+Très souvent en programmation, les instructions sont dépendantes sur les actions ou valeurs précédentes.
+
+Par exemple :
+
+`Si` une personne a moins de 18 ans, elle ne peut pas voter. `Sinon` elle peut voter.
+
+```python
+if age < 18 :
+	print("Vous pouvez pas voter")
+else:
+	print("Vous pouvez voter")
+```
+
+Le code dessus est appelé un **if statement**.
+
+On peut ajouter une autre condition aux if statements - `elif`. Un `elif` est comme un `if` mais avec une condition différente.
+
+Prenons l'exemple d'avant :
+
+```python
+if age < 18 :
+	print("Vous pouvez pas voter")
+elif age == 18:
+	print("Felicitations ! Vous pouvez voter")
+else:
+	print("Vous pouvez voter")
+```
+
+
+
+`if` et `elif` doivent avoir les conditions juste après. L'ordinateur vérifie si la condition est vrai (`True`) pour décider quoi faire. Si la condition est `True`, le code dessous le `if` ou `elif`  est exécuté. 
+
+Si la condition est fausse (`False`) le code dessous `else` est exécuté. 
+
+Pour représenter l'égalité en Python, on utilise deux `=`, parce une `=` est pour la déclaration des variables.
+
+Il y a plus d'informations [ici](https://python.doctor/page-apprendre-conditions-structures-conditionnelles-if-else-python-cours-debutant)
+
+

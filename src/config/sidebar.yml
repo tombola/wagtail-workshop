@@ -6,8 +6,60 @@
 #   link: '/getting-started'
 - label: Local set up
   items:
-    - label: 'Session 1. Local set up'
+    - label: 'Git & Github'
       link: '/wagtail-intro/local-set-up'
+    - label: 'Python'
+      link: '/local-set-up/python'
+    - label: 'Virtual env (venv)'
+      link: '/local-set-up/venv'
+    - label: 'AWS Account & CLI'
+      link: '/wagtail-intro/local-set-up'
+    - label: 'Heroku'
+      link: '/wagtail-intro/local-set-up'
+    - label: 'VS Code'
+      link: '/wagtail-intro/local-set-up'
+
+- label: Introduction to GitHub
+  items:
+   - label: 'Github Handbook'
+     link: '/github-intro/handbook'
+   - label: 'Understanding the GitHub flow'
+     link: '/github-intro/flow'
+   - label: 'Videos'
+     link: '/github-intro/videos'
+   - label: 'Project'
+     link: '/github-intro/project'
+    
+
+
+- label: Introduction to Python
+  items:
+    - label: 'What is programming?'
+      link: '/python-intro/la-programmation'
+    - label: 'What is Python?'
+      link: '/python-intro/le-python'
+    - label: 'The power of Python'
+      link: '/python-intro/exemples'
+    - label: 'Console and Files'
+      link: '/python-intro/console-fichier'
+    - label: 'Hello World'
+      link:  '/python-intro/hello-world'
+    - label: 'Functions and Variables'
+      link:   '/python-intro/fonctions-variables'
+    - label: 'Lists'
+      link:   '/python-intro/listes'
+    - label: 'Comments'
+      link:   '/python-intro/commentaires'
+    - label: 'If statements'
+      link:   '/python-intro/if-else'
+    - label: 'Modules'
+      link:   '/python-intro/modules'
+    - label: 'Mini Project'
+      link:   '/python-intro/projet'
+    - label: 'Cheatsheet'
+      link:   '/python-intro/je-triche'
+
+
 - label: Wagtail Course
   items:
     - label: 'Session 2 - Locally building our website'
