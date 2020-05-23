@@ -1,4 +1,6 @@
-# Coders Of Colour Introduction to Wagtail
+<h2 style="font-size:30px" align="center">
+    Coders Of Colour Introduction to Wagtail
+</h2>
 
 <p align="center">
     <img src="src/images/wc.png">
