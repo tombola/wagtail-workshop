@@ -5,7 +5,8 @@
 <p align="center">
     <img src="src/images/wc.png">
 </p>
-_This repository contains the documentaion for a wagtail workshop using [Gatsby Starter: Rocket Docs.](https://www.gatsbyjs.org/starters/Rocketseat/gatsby-starter-rocket-docs/)_
+
+_This repository contains the documentaion for a wagtail workshop using [Gatsby Starter: Rocket Docs](https://www.gatsbyjs.org/starters/Rocketseat/gatsby-starter-rocket-docs/)_
 
 See the live documentation at [https://intro-wagtail.netlify.app/](https://intro-wagtail.netlify.app/)
 
