@@ -1,58 +1,43 @@
-<p align="center">
-  <img src="https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/theme-docs.svg" alt="A illustration of file that is the @rocketseat/gatsby-theme-docs logo" width="100">
-</p>
+# Coders Of Colour Introduction to Wagtail
 
-<h2 align="center">
-  Gatsby Starter: Rocket Docs
-</h2>
+_This repository contains the documentaion for a wagtail workshop using [Gatsby Starter: Rocket Docs.](https://www.gatsbyjs.org/starters/Rocketseat/gatsby-starter-rocket-docs/)_
 
-<p align="center">
-  Out of the box Gatsby Starter for creating documentation websites easily and quickly. With support for MDX, code highlight, Analytics, SEO and more 🔥 Using the theme: <a href="https://github.com/Rocketseat/gatsby-themes/tree/master/%40rocketseat/gatsby-theme-docs">@rocketseat/gatsby-theme-docs</a>
-</p>
+See the live documentation at [https://intro-wagtail.netlify.app/](https://intro-wagtail.netlify.app/)
 
-<p align="center">
-  <img src="https://img.shields.io/badge/PRs-welcome-%237159c1.svg" alt="PRs welcome!" />
+## Adding to the documentation
 
-  <img alt="License" src="https://img.shields.io/badge/license-MIT-%237159c1">
+### Dependancies
 
-  <a href="https://twitter.com/intent/follow?screen_name=rocketseat">
-    <img src="https://img.shields.io/twitter/follow/rocketseat.svg?label=Follow%20@rocketseat" alt="Follow @rocketseat" />
-  </a>
-</p>
+- [NPM](https://www.npmjs.com/get-npm)
+- [gatsby-cli](https://www.gatsbyjs.org/docs/quick-start/#install-the-gatsby-cli)
 
-## 🚀 Features
+After cloning the repo. Install the node_modules:
 
-- MDX for docs;
-- Fully customizable through the usage of Gatsby Themes (and Theme UI)
-- Sidebar customization with Yaml;
-- Code highlighting with [prism-react-renderer](https://github.com/FormidableLabs/prism-react-renderer) and [react-live](https://github.com/FormidableLabs/react-live) support. Copy code button and option to show line numbers.
-- SEO (Sitemap, schema.org data, Open Graph and Twitter tags).
-- Google Analytics support;
-- Offline Support & WebApp Manifest
+```
+npm install
+```
 
-## ⚡️ Getting started
+Package.json contains the following npm script commands:
 
-1. Create the website.
+```
+"build": "gatsby build",
+"start": "gatsby develop",
+"serve": "gatsby serve",
+"clean": "gatsby clean"
+```
 
-    ```sh
-    gatsby new rocket-docs https://github.com/rocketseat/gatsby-starter-rocket-docs
-    ```
+To run the documentation locally, first build the documentation then run npm serve:
+```
+npm run build
+npm run start
+```
 
-2. Start developing.
+Documentation will be available on http://localhost:8000/. Changes to the documentation will be automatically reloaded.
 
-    ```sh
-    cd rocket-docs
-    gatsby develop
-    ```
+Ensure changes made to the documenation are made in the ./src directory.
 
-3. Are you ready for launch? 
+## Deploying changes
 
-    Your site is now running at `http://localhost:8000`
-
-## 📄 Docs
-
-Looking for docs? Check our live demo and documentation [website](https://rocketdocs.netlify.com).
-
----
-
-Made with 💜 by Rocketseat :wave: [check our community!](https://discordapp.com/invite/gCRAFhc)
+```
+npm run deploy
+```
