@@ -1,14 +1,16 @@
 <h2 style="font-size:30px" align="center">
     Coders Of Colour Introduction to Wagtail
 </h2>
+<p align="center"><i>
+This repository contains the documentaion for a wagtail workshop using <a href="https://www.gatsbyjs.org/starters/Rocketseat/gatsby-starter-rocket-docs/"> Gatsby Starter: Rocket Docs</a></i></p>
+
+<p align="center"><i>See the live documentation at <a href="https://intro-wagtail.netlify.app/">https://intro-wagtail.netlify.app/</a></i></p>
 
 <p align="center">
     <img src="src/images/wc.png">
 </p>
 
-_This repository contains the documentaion for a wagtail workshop using [Gatsby Starter: Rocket Docs](https://www.gatsbyjs.org/starters/Rocketseat/gatsby-starter-rocket-docs/)_
 
-See the live documentation at [https://intro-wagtail.netlify.app/](https://intro-wagtail.netlify.app/)
 
 ## Adding to the documentation
 
