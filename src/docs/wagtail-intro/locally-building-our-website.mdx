@@ -5,9 +5,9 @@ For demo purposes, I'm calling my site `mysite`.
 
 Create a directory for our site
 ```bash
-    cd ~
-    mkdir mysite
-    cd mysite
+cd ~
+mkdir mysite
+cd mysite
 ```
 
 ## Install and run Wagtail
@@ -18,7 +18,7 @@ Wagtail supports Python 3.5, 3.6, 3.7 and 3.8.
 
 To check whether you have an appropriate version of Python 3:
 ```bash
-    python3 --version
+python3 --version
 ```
 
 If this does not return a version number or returns a version lower than 3.5, you will need to [install Python 3](https://www.python.org/downloads/).
@@ -31,15 +31,17 @@ We recommend using a virtual environment, which provides an isolated Python envi
 
 **On Windows** (cmd.exe):
 ```bash
-    python3 -m venv mysite\env
-    mysite\env\Scripts\activate.bat
-```  
+python3 -m venv mysite\env
+mysite\env\Scripts\activate.bat
+```
 
 **On Unix or MacOS** (bash):
 ```bash
-    $ python3 -m venv mysite/env
-    $ source mysite/env/bin/activate
-```  
+python3 -m venv mysite/env
+source mysite/env/bin/activate
+
+```
+
 
 **For other shells** see the [venv documentation](https://docs.python.org/3/library/venv.html).
 
@@ -52,7 +54,7 @@ If you’re using version control (e.g. git), `mysite` will be the directory for
 Use pip, which is packaged with Python, to install Wagtail and its dependencies:
 ```bash
     $ pip install wagtail
-```  
+```
 
 ### Generate your site
 
@@ -67,7 +69,7 @@ Because the folder `mysite` was already created by `venv`, run `wagtail start` w
 ```bash
     $ cd mysite
     $ pip install -r requirements.txt
-```   
+```
 
 This ensures that you have the relevant versions of Wagtail, Django, and any other dependencies for the project you have just created.
 
@@ -76,12 +78,12 @@ This ensures that you have the relevant versions of Wagtail, Django, and any oth
 If you haven’t updated the project settings, this will be a SQLite database file in the project directory.
 ```bash
     $ python manage.py migrate
-``` 
+```
 
 ### Create an admin user
 ```bash
     $ python manage.py createsuperuser
-```   
+```
 
 ### Start the server
 ```bash
@@ -115,7 +117,7 @@ Edit `home/models.py` as follows, to add a `body` field to the model:
     from wagtail.admin.edit_handlers import FieldPanel
     class HomePage(Page):
         body = RichTextField(blank=True)
-``` 
+```
 
 Generate and run the migrations needed
 
@@ -127,7 +129,7 @@ Run `python [manage.py](http://manage.py/) makemigrations`, then python [`manage
 ```bash
     $ ./manage.py makemigrations
     $ ./manage.py migrate
-``` 
+```
 
 The above commands should do the following:
 
@@ -146,13 +148,13 @@ Make the body field editable
             FieldPanel('body', classname="full"),
         ]
 ```
-    
+
 
 Check your terminal to see if the site is still running, if it isn't, run
 ```bash
     $ ./manage.py runserver
 ```
-    
+
 
 It's a good idea to have two terminal windows open whilest developing
 
@@ -179,7 +181,7 @@ Edit `home/templates/home/home_page.html` to match (remove it all and replace it
         {{ page.body|richtext }}
     {% endblock %}
 ```
-    
+
 
 Your homepage title and field should now show on the root page of your local site at 0.0.0.0 / 127.0.0.1
 
@@ -204,7 +206,7 @@ so your file structure should now be:
     ├── mysite
     ├── requirements.txt
     └── search
-```  
+```
 
 To view your file structure like above, type `tree -L 1` if you are using Windows, `brew install tree` and then `tree -L 1`  if you are using a Mac and `sudo apt-get install tree -y` followed by `tree -L 1` if you are using a Debian (Linux) machine.
 
@@ -245,7 +247,7 @@ Edit `blog/models.py`:
             FieldPanel('intro', classname="full")
         ]
 ```
-    
+
 
 Similar to what we did earlier, run `./manage.py makemigrations` and `./manage.py migrate`. This will add define the schema in our database for the blog.
 
@@ -294,7 +296,7 @@ In `blog/models.py`:
             FieldPanel('body', classname="full"),
         ]
 ```
-    
+
 
 Same again, run`./manage.py makemigrations` and `./manage.py migrate` to create the database changes
 
@@ -306,12 +308,12 @@ Make a file at `blog/templates/blog/blog_page.html` with this content:
     {% load wagtailcore_tags %}
     {% block content %}
         <h1>{{ page.title }}</h1>
-        <p class="meta">{{ page.date }}</p>    
+        <p class="meta">{{ page.date }}</p>
         <div class="intro">{{ page.intro }}</div>
         {{ page.body|richtext }}
         <p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
     {% endblock %}
-```  
+```
 
 Now we can add a blog page as a child of our blog index:
 
@@ -326,14 +328,14 @@ Let's see what we have by going to our admin and checking the front end of the p
 Posts should be in reverse chronological order, and we should only list published content. Edit `models.py`, adding this `get_context` method to the `BlogIndexPage` class:
 ```python
     def get_context(self, request):
-        # Update context to include only published posts, 
+        # Update context to include only published posts,
         # in reverse chronological order
         context = super(BlogIndexPage, self).get_context(request)
         live_blogpages = self.get_children().live()
         context['blogpages'] = live_blogpages.order_by('-first_published_at')
         return context
 ```
-    
+
 
 and update your blog index template to loop over `blogpages` instead of `page.get_children`.
 
@@ -353,7 +355,7 @@ and update your blog index template to loop over `blogpages` instead of `page.ge
     # in your content_panels for BlogPage
     ImageChooserPanel('image'),
 ```
-    
+
 
 Again, because we added a field to hold data... run `./manage.py makemigrations` and `./manage.py migrate`
 
@@ -395,7 +397,7 @@ I'm just going to make the body colour grey.
     body{
         background: #ccc;
     }
-```  
+```
 
 ## Committing our code to git
 
@@ -451,7 +453,7 @@ now in the project root, we need to initialize the git repository, and add our f
     $ git commit -m "Initial :tada:" # I just like emojis, that's what tada is.
     $ git remote add origin https://github.com/kevinhowbrook/codersofcolor.git # replace your origin here
     $ git push -u origin master
-```  
+```
 
 If all went well... when you go back to the github page and refresh, you should see all your code.
 
