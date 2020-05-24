@@ -17,7 +17,7 @@ First of all, we'll add the following settings into our production.py settings f
 
 Open up mysite/settings/production.py and change it to look like this:
 
-```python
+```python lineNumbers=true
 import os
 import dj_database_url
 from .base import *
@@ -126,7 +126,7 @@ pip freeze > requirements.txt
 
 Now you need to add Whitenoise to your MIDDLEWARE. Open settings/base.py and add whitenoise. Note This MUST go after ...SecurityMiddleware
 
-```python
+```python lineNumbers=true
 MIDDLEWARE = [
     ...
     'django.middleware.security.SecurityMiddleware',
@@ -137,7 +137,7 @@ MIDDLEWARE = [
 
 Now let's change our static file storage type, and some compression settings. Open settings/production.py and add this:
 
-```python
+```python lineNumbers=true
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 COMPRESS_OFFLINE = True
 COMPRESS_CSS_FILTERS = [

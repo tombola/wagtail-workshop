@@ -118,7 +118,7 @@ Now we need to change a few things in our local site and push them up. The last 
 
 Next head over to the [base.py](http://base.py/) file in your project's settings directory and add the following chunk of code. Theis will enable the storages only when it finds the env vars... which will be on heroku.
 
-```python
+```python lineNumbers=true
 env = os.environ.copy() # Add this near the top after the imports
 
 # add this towards or at the bottom

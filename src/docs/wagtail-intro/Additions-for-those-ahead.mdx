@@ -11,7 +11,7 @@ Will need an explination of what streamfield is.
 
 To convert the body field of your blog post from a rich text field to a StreamField, update `blog/models.py`
 
-```python
+```python lineNumbers=true
 # to your imports, add:
 from wagtail.core.fields import StreamField
 from wagtail.core import blocks
@@ -31,7 +31,7 @@ StreamFieldPanel('body')
 
 Update your blog page template to output the new field type, replacing `{{ page.body|richtext }}` with
 
-```python
+```python lineNumbers=true
 {% for child in self.body %}
     {% if child.block_type == 'heading' %}
         <h2>{{ child }}</h2>

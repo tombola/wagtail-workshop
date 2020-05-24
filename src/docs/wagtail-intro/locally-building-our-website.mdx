@@ -45,7 +45,7 @@ source mysite/env/bin/activate
 
 **For other shells** see the [venv documentation](https://docs.python.org/3/library/venv.html).
 
-<p class="alert info">If you’re using version control (e.g. git), `mysite` will be the directory for your project. The `env` directory inside of it should be excluded from any version control, but we will set up the gitignore for this later</p>
+If you’re using version control (e.g. git), `mysite` will be the directory for your project. The `env` directory inside of it should be excluded from any version control, but we will set up the gitignore for this later
 
 ### Install Wagtail
 
@@ -110,7 +110,7 @@ Out of the box, the “home” app defines a blank `HomePage` model in [`models.
 
 Edit `home/models.py` as follows, to add a `body` field to the model:
 
-```python title=home/models.py
+```python lineNumbers=true  title=home/models.py
 from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel
@@ -148,7 +148,7 @@ Migrations are Django’s way of propagating changes you make to your models (ad
 
 Make the body field editable
 
-```python title=home/models.py
+```python lineNumbers=true  title=home/models.py
 class HomePage(Page):
     body = RichTextField(blank=True)
     content_panels = Page.content_panels + [
@@ -163,7 +163,7 @@ Check your terminal to see if the site is still running, if it isn't, run
 ./manage.py runserver
 ```
 
-<p class="alert info">It's a good idea to have two terminal windows open whilest developing</p>
+> It's a good idea to have two terminal windows open whilest developing
 
 Go to the local site in your browser at 0.0.0.0:8000 or 127.0.0.1, or [localhost:8000](http://localhost:8000/) (depending on local hosts setup)
 
@@ -195,10 +195,9 @@ Your homepage title and field should now show on the root page of your local sit
 
 ## Create a blog app
 
-<p class="alert info">An app refers to a submodule in our project. It's self-sufficient and not intertwined with the other apps in the project such that, in theory, you could pick it up and move it down into another project without any modification. An app typically has its own models.py. You might think of it as a standalone python module. A simple project might only have one app, whereas more complex projects or websites will have multiple apps that define deifferent models. E.G a news app defining a NewsPost model, a video app defining a VideoPage model etc.
-
-If you find one app is solving two problems, split them into two apps. If you find two apps are so intertwined you could never reuse one without the other, combine them into a single app.
-</p>
+> An app refers to a submodule in our project. It's self-sufficient and not intertwined with the other apps in the project such that, in theory, you could pick it up and move it down into another project without any modification. An app typically has its own models.py. You might think of it as a standalone python module. A simple project might only have one app, whereas more complex projects or websites will have multiple apps that define deifferent models. E.G a news app defining a NewsPost model, a video app defining a VideoPage model etc.
+>
+>If you find one app is solving two problems, split them into two apps. If you find two apps are so intertwined you could never reuse one without the other, combine them into a single app.
 
 First we need to create the blog app. This is done via the `mange.py` file. It should be created at the site root:
 
@@ -239,7 +238,7 @@ blog
 
 Now we need to enable the blog by adding it to our site settings. add `blog` to `INSTALLED_APPS` in `mysite/settings/base.py`
 
-```python title=mysite/settings/base.py
+```python lineNumbers=true  title=mysite/settings/base.py
 # Application definition
 INSTALLED_APPS = [
     'home',
@@ -252,7 +251,7 @@ INSTALLED_APPS = [
 
 Edit `blog/models.py`:
 
-```python title=blog/models.py
+```python lineNumbers=true  title=blog/models.py
 from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel
@@ -276,7 +275,7 @@ After running this, go the the cms admin and add a child page to our homepage:
 
 Make a file at `blog/templates/blog/blog_index_page.html` with this content:
 
-```python title=blog/templates/blog/blog_index_page.html
+```python lineNumbers=true title=blog/templates/blog/blog_index_page.html
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
 {% block content %}
@@ -297,8 +296,7 @@ Make a file at `blog/templates/blog/blog_index_page.html` with this content:
 
 **Add a model for blog posts**
 
-In `blog/models.py`:
-```python
+```python lineNumbers=true title=blog/models.py
 from django.db import models
 from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField
@@ -323,6 +321,7 @@ class BlogPage(Page):
         FieldPanel('intro'),
         FieldPanel('body', classname="full"),
     ]
+
 ```
 
 
@@ -332,7 +331,7 @@ Same again, run`./manage.py makemigrations` and `./manage.py migrate` to create 
 
 Make a file at `blog/templates/blog/blog_page.html` with this content:
 
-```python title=blog/blog_page.html
+```python lineNumbers=true  title=blog/templates/blog/blog_page.html
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
 
@@ -357,14 +356,21 @@ Let's see what we have by going to our admin and checking the front end of the p
 
 Posts should be in reverse chronological order, and we should only list published content. Edit `models.py`, adding this `get_context` method to the `BlogIndexPage` class:
 
-```python
-def get_context(self, request):
-    # Update context to include only published posts,
-    # in reverse chronological order
-    context = super(BlogIndexPage, self).get_context(request)
-    live_blogpages = self.get_children().live()
-    context['blogpages'] = live_blogpages.order_by('-first_published_at')
-    return context
+```python lineNumbers=true title=blog/models.py
+class BlogIndexPage(Page):
+    intro = RichTextField(blank=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('intro', classname="full")
+    ]
+
+    def get_context(self, request):
+        # Update context to include only published posts,
+        # in reverse chronological order
+        context = super(BlogIndexPage, self).get_context(request)
+        live_blogpages = self.get_children().live()
+        context['blogpages'] = live_blogpages.order_by('-first_published_at')
+        return context
 ```
 
 
@@ -374,7 +380,7 @@ and update your blog index template to loop over `blogpages` instead of `page.ge
 
 ## Add an image to your blog post model
 
-```python
+```python lineNumbers=true
 # in the imports
 from wagtail.images.edit_handlers import ImageChooserPanel
 
@@ -394,7 +400,7 @@ Again, because we added a field to hold data... run `./manage.py makemigrations`
 
 ## Update the blog post template to output images
 
-```python
+```python lineNumbers=true
 {% extends "base.html" %}
 {% load wagtailcore_tags wagtailimages_tags %}
 {% block content %}
