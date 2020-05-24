@@ -79,15 +79,15 @@ After running this you should see a lot of noise in your terminal whilst heroku 
 
 After this is done, heroku should have built your site. In the project on the heoku UI you should see something like this:
 
-![https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBln4_bKwVcqtLl23%2FUntitled%204.png?generation=1585500595262552&alt=media](https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBln4_bKwVcqtLl23%2FUntitled%204.png?generation=1585500595262552&alt=media)
+![](../../images/pd_1.png)
 
 *Note that heroku attached a database for us, you can see it's also added the environment variable for the database under the settings tab by clicking 'reveal config vars'.
 
-![https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBln5q6T4pBWNNbem%2FUntitled%205.png?generation=1585500595256452&alt=media](https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBln5q6T4pBWNNbem%2FUntitled%205.png?generation=1585500595256452&alt=media)
+![](../../images/pd_2.png)
 
 If you click **Open app** now, you'll probably see an error page
 
-![https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBln6dTEP0hNlzUnR%2FUntitled%206.png?generation=1585500595256265&alt=media](https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBln6dTEP0hNlzUnR%2FUntitled%206.png?generation=1585500595256265&alt=media)
+![](../../images/pd_3.png)
 
 This is throwing an error because we haven't ran `./manage,py migrate` on heroku to populate the database. Also remember we specified DEBUG=False in our production settings file? Well we shouldn't be seeing this ugly error screen at all, it's for developers. This is because we haven't told heroku to use our production settings file. Let's fix it.
 
@@ -156,11 +156,11 @@ git commit -m "Added Whitenoise"
 
 Before we push this up to heroku. Let's configure github to automatically pull in deployments when we push to master. Go to the deploy tab in heroku and configure github by searching for our repo:
 
-![https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBlmwDiUWdkr_PAkl%2Fghc.gif?generation=1585500595272603&alt=media](https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBlmwDiUWdkr_PAkl%2Fghc.gif?generation=1585500595272603&alt=media)
+![](../../images/pd_4.gif)
 
 Then click the button below to enable deployments automatically when the master branch changes in github.
 
-![https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBln7vuoec9ojoTo6%2FUntitled%207.png?generation=1585500595256313&alt=media](https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBln7vuoec9ojoTo6%2FUntitled%207.png?generation=1585500595256313&alt=media)
+![](../../images/pd_5.png)
 
 Note: We won't have a CI so there is potential to add migration files that may pottentially cause damage, I can talk more about this but it boils down to migration files conflicting. Usually the heroku build will just fail though. You can just use manual deployments if you prefer though (button a bit lower down to pull the code in from github.
 

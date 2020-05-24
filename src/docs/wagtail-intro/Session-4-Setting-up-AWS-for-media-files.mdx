@@ -3,7 +3,7 @@
 
 Log into your heroku site by going to /admin. We already ran the createsuperuser command earlier so your account should be set up. Go to Images in the left hand menu. You'll find that when adding images this happens:
 
-![https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBlmxgZkEjpnlvJEz%2Fimages.gif?generation=1585500595274043&alt=media](https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBlmxgZkEjpnlvJEz%2Fimages.gif?generation=1585500595274043&alt=media)
+![](../../images/aws_1.gif)
 
 While Whitenoise is a handy solution for static assets, it is not intended to handle media assets. There are a few reasons for this. The main reason being that it only checks for files at startup so anything uploaded by a user won’t be seen. It could also open your project up to security risks if you use Whitenoise for media files. Amazon's S3 service is perfect for this.
 
@@ -24,31 +24,23 @@ We'll mostly follow the instructions on buckup [https://github.com/torchbox/buck
 
 In the AWS console locate the IAM user management from the main menu
 
-![Session%204%20Setting%20up%20AWS%20for%20media%20files/Screenshot_2020-04-16_at_01.51.20.png](Session%204%20Setting%20up%20AWS%20for%20media%20files/Screenshot_2020-04-16_at_01.51.20.png)
-
-![https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBln8BhTq7BQMRl0f%2FUntitled%208.png?generation=1585500595256454&alt=media](https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBln8BhTq7BQMRl0f%2FUntitled%208.png?generation=1585500595256454&alt=media)
+![](../../images/aws_2.png)
 
 Click Users > then Add user
 
 I'm going to call my user `cocdersofcolouruser`
 
-![https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBln9rrTeMyUTxE-C%2FUntitled%209.png?generation=1585500595256135&alt=media](https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBln9rrTeMyUTxE-C%2FUntitled%209.png?generation=1585500595256135&alt=media)
+![](../../images/aws_3.png)
 
 Next you will be asked to add the user to a group. For now, we'll set up a ful S3 user. This should probably be more restricted in reality though, not entirely sure.
 
 In a new tab, Locate the groups link in the left menu and click Create new group
 
-![https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBlmz04-S2Xz0tXTr%2FUntitled%2010.png?generation=1585500595281768&alt=media](https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBlmz04-S2Xz0tXTr%2FUntitled%2010.png?generation=1585500595281768&alt=media)
+![](../../images/aws_4.png)
 
 Group Name: S3 (you can see I already have s3full)
 
-![Session%204%20Setting%20up%20AWS%20for%20media%20files/Screenshot_2020-04-16_at_01.53.56.png](Session%204%20Setting%20up%20AWS%20for%20media%20files/Screenshot_2020-04-16_at_01.53.56.png)
-
 The next screen will ask you to attach a policy. Search for s3 and find AmazonS3FullAccess, tick it and click next step.
-
-![Session%204%20Setting%20up%20AWS%20for%20media%20files/Screenshot_2020-04-16_at_01.55.16.png](Session%204%20Setting%20up%20AWS%20for%20media%20files/Screenshot_2020-04-16_at_01.55.16.png)
-
-![Session%204%20Setting%20up%20AWS%20for%20media%20files/Screenshot_2020-04-16_at_01.56.18.png](Session%204%20Setting%20up%20AWS%20for%20media%20files/Screenshot_2020-04-16_at_01.56.18.png)
 
 When your group is created, switch back to your IAM user tab
 
@@ -56,13 +48,17 @@ Click the refresh button next to create group... you might be able to create the
 
 Tick the group we created to add it to the user and click next:tags bottom right
 
+![](../../images/aws_5.png)
+
+
 Skip this and click Next:review
 
 Now click Create User.
 
 You will need the Access key ID and Secret access key to use with Buckup. Read the message at the top - this is the last chance to see these access credentials. I recomend downloading the CSV, and putting them somewhere safe locally. Do not upload them anywhere!
 
-![https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBln0RmnVFiOGAOX9%2FUntitled%2012.png?generation=1585500595256262&alt=media](https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBln0RmnVFiOGAOX9%2FUntitled%2012.png?generation=1585500595256262&alt=media)
+![](../../images/aws_6.png)
+
 
 Back in our local terminal and in our virtual environment. We need to configure buckup to use the AWS user we just created.
 
@@ -116,7 +112,7 @@ After bucket has been successfully created, the program will display three impor
 
 Whilst we can see our access details to the bucket in the terminal that buckup just gave us, lets add them to the heroku variables in settings > reveal config vars
 
-![https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBln1hoO7m17kB63i%2FUntitled%2013.png?generation=1585500595323868&alt=media](https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBln1hoO7m17kB63i%2FUntitled%2013.png?generation=1585500595323868&alt=media)
+![](../../images/aws_7.png)
 
 Now we need to change a few things in our local site and push them up. The last thing we did was install django-storages and boto3.
 
