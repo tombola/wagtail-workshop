@@ -109,7 +109,8 @@ TODO The following example is for a blog, we should make this more relevant, lik
 Out of the box, the “home” app defines a blank `HomePage` model in [`models.py`](http://models.py/), along with a migration that creates a homepage and configures Wagtail to use it.
 
 Edit `home/models.py` as follows, to add a `body` field to the model:
-```python
+
+```python title=home/models.py
 from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel
@@ -132,41 +133,43 @@ The above commands should do the following:
 
 - make a new migration file at mysite/home/migrations/003_homepage_body.py
 - Run the new migration file to populate or change the schema for the database
-```bash
+
+```bash title=output
 (mysite-venv) kevin@mulder:~/shared/mysite/mysite
 ./manage.py makemigrations Migrations for 'home': home/migrations/0003_homepage_body.py
+...
 ```
 
-### What is the ./manage.py file and ./migrate
+### What is the ./manage.py file and ./migrate?
 
 The `manage.py` is a python file we use to execute administration tasks. When we run `./manage.py migrate` we are executing the django `migrate` method. This will create automatically create python files that define or adjust database schema. It saves us manually creating tables when we need them.
 
 Migrations are Django’s way of propagating changes you make to your models (adding a field, deleting a model, etc.) into your database schema. They’re designed to be mostly automatic, but you’ll need to know when to make migrations, when to run them, and the common problems you might run into. Read more about migration on the [Django docs](https://docs.djangoproject.com/en/3.0/topics/migrations/)
 
-   [TODO - There is a chnk Tolu has taken out.]
 Make the body field editable
-```python
+
+```python title=home/models.py
 class HomePage(Page):
     body = RichTextField(blank=True)
     content_panels = Page.content_panels + [
-    FieldPanel('body', classname="full"),
-]
+        FieldPanel('body', classname="full"),
+    ]
 ```
 
 
 Check your terminal to see if the site is still running, if it isn't, run
+
 ```bash
 ./manage.py runserver
 ```
 
-
-It's a good idea to have two terminal windows open whilest developing
+<p class="alert info">It's a good idea to have two terminal windows open whilest developing</p>
 
 Go to the local site in your browser at 0.0.0.0:8000 or 127.0.0.1, or [localhost:8000](http://localhost:8000/) (depending on local hosts setup)
 
 From the admin menu select pages > home.
 
-This will land you [http://0.0.0.0:8000/admin/pages/3/](http://0.0.0.0:8000/admin/pages/3/) which is your homepage. If there wheree child pages they would be listed here. Under the home title click 'edit' to edit the page. (note you can also do this straight from the admin menu by clicking page > then the small pencil icon.
+This will land you [http://0.0.0.0:8000/admin/pages/3/](http://0.0.0.0:8000/admin/pages/3/) which is your homepage. If there where child pages they would be listed here. Under the home title click 'edit' to edit the page. (note you can also do this straight from the admin menu by clicking page > then the small pencil icon.)
 
 You should be on [http://0.0.0.0:8000/admin/pages/3/edit/](http://0.0.0.0:8000/admin/pages/3/edit/)
 
@@ -177,7 +180,8 @@ Add some body text and select publish from the bottom bar.
 ### Update the template
 
 Edit `home/templates/home/home_page.html` to match (remove it all and replace it with this):
-```html
+
+```html title=home/templates/home/home_page.html
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
 {% block content %}
@@ -189,11 +193,15 @@ Edit `home/templates/home/home_page.html` to match (remove it all and replace it
 
 Your homepage title and field should now show on the root page of your local site at 0.0.0.0 / 127.0.0.1
 
-### Create a blog app
+## Create a blog app
 
-TODO explain what an 'app' is and why we call it an app.
+<p class="alert info">An app refers to a submodule in our project. It's self-sufficient and not intertwined with the other apps in the project such that, in theory, you could pick it up and move it down into another project without any modification. An app typically has its own models.py. You might think of it as a standalone python module. A simple project might only have one app, whereas more complex projects or websites will have multiple apps that define deifferent models. E.G a news app defining a NewsPost model, a video app defining a VideoPage model etc.
 
-First we need to create the blog app. This is done via the [mange.py](http://mange.py/) file. It should be created at the site root:
+If you find one app is solving two problems, split them into two apps. If you find two apps are so intertwined you could never reuse one without the other, combine them into a single app.
+</p>
+
+First we need to create the blog app. This is done via the `mange.py` file. It should be created at the site root:
+
 ```bash
 ./manage.py startapp blog
 ```
@@ -212,9 +220,10 @@ tree -L 1
 └── search
 ```
 
-To view your file structure like above, type `tree -L 1` if you are using Windows, `brew install tree` and then `tree -L 1`  if you are using a Mac and `sudo apt-get install tree -y` followed by `tree -L 1` if you are using a Debian (Linux) machine.
+To view your file structure like above, type `tree -L 1` if you are using Windows, Mac: `brew install tree` and then `tree -L 1`  Linux: `sudo apt-get install tree -y` followed by `tree -L 1`
 
 The startapp command generated an app with some boilerplate files for us:
+
 ```bash
 tree blog
 blog
@@ -228,8 +237,9 @@ blog
 └── views.py
 ```
 
-Now we need to enable the blogby adding it to our site settings. add `blog` to `INSTALLED_APPS` in `mysite/settings/base.py`
-```python
+Now we need to enable the blog by adding it to our site settings. add `blog` to `INSTALLED_APPS` in `mysite/settings/base.py`
+
+```python title=mysite/settings/base.py
 # Application definition
 INSTALLED_APPS = [
     'home',
@@ -241,7 +251,8 @@ INSTALLED_APPS = [
 **Define the model for the blog index page**
 
 Edit `blog/models.py`:
-```python
+
+```python title=blog/models.py
 from wagtail.core.models import Page
 from wagtail.core.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel
@@ -265,7 +276,7 @@ After running this, go the the cms admin and add a child page to our homepage:
 
 Make a file at `blog/templates/blog/blog_index_page.html` with this content:
 
-```python lineNumbers=true
+```python title=blog/templates/blog/blog_index_page.html
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
 {% block content %}
