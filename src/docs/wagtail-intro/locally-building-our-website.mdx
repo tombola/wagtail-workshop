@@ -376,11 +376,27 @@ class BlogIndexPage(Page):
 
 and update your blog index template to loop over `blogpages` instead of `page.get_children`.
 
-[TODO Tolu - show how to change loop]
+
+```python lineNumbers=true title=blog/templates/blog/blog_index_page.html
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% block content %}
+    <h1>{{ page.title }}</h1>
+    <div class="intro">{{ page.intro|richtext }}</div>
+        {% for post in blogpages %}
+            <h2>
+                <a href="{% pageurl post %}">
+                    {{ post.title }}
+                </a>
+            </h2>
+            {{ post.specific.date }}
+        {% endfor %}
+{% endblock %}
+```
 
 ## Add an image to your blog post model
 
-```python lineNumbers=true
+```python lineNumbers=true title=blog/models.py
 # in the imports
 from wagtail.images.edit_handlers import ImageChooserPanel
 
@@ -398,7 +414,7 @@ ImageChooserPanel('image'),
 
 Again, because we added a field to hold data... run `./manage.py makemigrations` and `./manage.py migrate`
 
-## Update the blog post template to output images
+### Update the blog post template to output images
 
 ```python lineNumbers=true
 {% extends "base.html" %}
@@ -415,13 +431,15 @@ Again, because we added a field to hold data... run `./manage.py makemigrations`
 
 `fill` is just one of Wagtail's image resizing methods. Details of the others are listed in [the docs](http://docs.wagtail.io/en/latest/topics/images.html). Try them out!
 
-### Basic styling
+## Basic styling
 
 TODO Maybe explain here templates and template inheritance?
 
+> Take a moment read through the django documentation on templates https://docs.djangoproject.com/en/3.0/ref/templates/language/#templates
+
 Add [tachyons](https://tachyons.io/) to `mysite/templates/base.html`, before `{# Global stylesheets #}`:
 
-```html
+```html title=mysite/templates/base.html
 <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
 <!-- Tachyons CSS minified -->
 <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
@@ -429,7 +447,11 @@ Add [tachyons](https://tachyons.io/) to `mysite/templates/base.html`, before `{#
 
 wrap the content block in a container div and add the tachyons classes to style the widths of the container:
 
-{% block content %}{% endblock %}
+```html title=mysite/templates/base.html
+<div class="container ph3 ph5-ns">
+  {% block content %}{% endblock %}
+</div>
+```
 
 Add some css styling to your custom css file at `[mysite]/static/css/[mysite].css`
 
