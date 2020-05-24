@@ -45,9 +45,7 @@ source mysite/env/bin/activate
 
 **For other shells** see the [venv documentation](https://docs.python.org/3/library/venv.html).
 
-Note
-
-If you’re using version control (e.g. git), `mysite` will be the directory for your project. The `env` directory inside of it should be excluded from any version control, but we will set up the gitignore for this later
+<p class="alert info">If you’re using version control (e.g. git), `mysite` will be the directory for your project. The `env` directory inside of it should be excluded from any version control, but we will set up the gitignore for this later</p>
 
 ### Install Wagtail
 
@@ -102,7 +100,7 @@ https://docs.wagtail.io/en/v2.8/_images/tutorial_2.png
 
 ![https://docs.wagtail.io/en/v2.8/_images/tutorial_2.png](https://docs.wagtail.io/en/v2.8/_images/tutorial_2.png)
 
-### Some dev work
+## Development
 
 TODO The following example is for a blog, we should make this more relevant, like donation page or something
 
@@ -123,11 +121,8 @@ class HomePage(Page):
 
 Generate and run the migrations needed
 
-TODO: Explination of why we do this?
+The changes we just made will need to be applied to the database. Here we are adding a body field, so the database needs to be able to store the information we add to the body. We do this using the `./manage.py` file with the two following commands:
 
-TODO: Explanation of the [`manage.py`](http://manage.py/) file?
-
-Run `python [manage.py](http://manage.py/) makemigrations`, then python [`manage.py`](http://manage.py/) migrate to update the database with your model changes. You must run the above commands each time you make changes to the model definition.
 ```bash
 ./manage.py makemigrations
 ./manage.py migrate
@@ -141,6 +136,13 @@ The above commands should do the following:
 (mysite-venv) kevin@mulder:~/shared/mysite/mysite
 ./manage.py makemigrations Migrations for 'home': home/migrations/0003_homepage_body.py
 ```
+
+### What is the ./manage.py file and ./migrate
+
+The `manage.py` is a python file we use to execute administration tasks. When we run `./manage.py migrate` we are executing the django `migrate` method. This will create automatically create python files that define or adjust database schema. It saves us manually creating tables when we need them.
+
+Migrations are Django’s way of propagating changes you make to your models (adding a field, deleting a model, etc.) into your database schema. They’re designed to be mostly automatic, but you’ll need to know when to make migrations, when to run them, and the common problems you might run into. Read more about migration on the [Django docs](https://docs.djangoproject.com/en/3.0/topics/migrations/)
+
    [TODO - There is a chnk Tolu has taken out.]
 Make the body field editable
 ```python
