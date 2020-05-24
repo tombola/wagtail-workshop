@@ -1,33 +1,29 @@
----
-title: "Listes"
-metaTitle: "Listes | Introduction à Python"
-metaDescription: 'Site web pour "Écrivez votre premier programme en Python" #SolidairePasSolitaire'
----
+# Lists
 
-Les **listes** (ou list / array) en python sont une variable dans laquelle on peut mettre plusieurs variables.
+**Lists** in Python are variables in which we can put several variables.
 
-On peut les déclarer vides ou avec les variables dedans :
+We can declare them empty or with variables insdie them:
 
 ```python
-noms = []
-couleurs = ['rouge', 'jaune', 'bleu']
-codes_postaux = [75001, 75002, 75003]
-personne = [3, 'Didier']
+names = []
+colours = ['red', 'yellow', 'blue']
+post_codes = [75001, 75002, 75003]
+person = [3, 'Bob']
 ```
 
-Une liste est aussi une variable. Une fois déclarée, on peut l'utiliser dans le reste du programme.
+A list is also a variable. Once declares, we can use it in the rest of the program.
 
 ```python
-print(codes_postaux)
+print(post_codes)
 ```
 
-Pour lire une liste, on peut demander à voir l'index de la valeur qui nous intéresse.
+To access elements in a list, we can ask to see the index of the value we are looking for.
 
-Le premier item commence toujours avec l'index 0. Pour lire le premier item on utilise la valeur 0, le deuxième on utilise la valeur 1, etc.
+The first element of a list has index 0. In programming, we start counting from 0 and not from 1. If we are looking for the third element we will look for the element at index 2.
 
 ```python
-couleurs = ['rouge', 'jaune', 'bleu']
-couleurs[0]
-couleurs[2]
+colours = ['red', 'yellow', 'blue']
+colours[0]
+colours[2]
 ```
 

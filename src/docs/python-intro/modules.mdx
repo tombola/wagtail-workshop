@@ -1,22 +1,17 @@
----
-title: "Modules"
-metaTitle: "Modules | Introduction à Python"
-metaDescription: 'Site web pour "Écrivez votre premier programme en Python" #SolidairePasSolitaire'
----
+# Modules
 
-## Modules
 
-Les modules sont donc des fichiers qui regroupent des ensembles de fonctions. En effet, il peut être commode de découper un programme important en plusieurs fichiers de taille modeste pour en faciliter la maintenance et le travail collectif. Une application Python typique sera alors constituée d'un programme principal accompagné de un ou plusieurs modules contenant chacun les définitions d'un certain nombre de fonctions accessoires.
+A module allows you to logically organize your Python code. Grouping related code into a module makes the code easier to understand and use. A module is a Python object with arbitrarily named attributes that you can bind and reference.
 
-Il existe un grand nombre de modules pré-programmés qui sont fournis d'office avec Python. Vous pouvez en trouver d'autres chez divers fournisseurs. Souvent on essaie de regrouper dans un même module des ensembles de fonctions apparentées que l'on appelle des bibliothèques.
+Simply, a module is a file consisting of Python code. A module can define functions, classes and variables. A module can also include runnable code.
 
-Un module peut être appelé depuis plusieurs programmes, il s'agit d'un fichier .py commençant par son identité (qui ne contient pas de point).
+There are several pre-programmed modules in Python to help with common tasks. These modules make the [Standard Library](https://docs.python.org/2/library/index.html).
 
-### Importer un module
+### Import a module
 
-Pour utiliser des fonctions de modules dans un programme, il faut au début du fichier importer ceux-ci.
+To use functions from a module in your programme, you need to import it into your file.
 
-Pour ce faire, utiliser la commande "import" :
+To do that, use the command "import" :
 
 ```python
 import os
@@ -25,9 +20,10 @@ import codecs
 ```
 
 
-### Liste des modules standards
+### List of standard modules
 
-Les modules standards les plus importants sont:
+The most important modules in the Standard Library are:
+
 
 - cgi
 - math
@@ -40,5 +36,4 @@ Les modules standards les plus importants sont:
 - time
 - urllib
 
-Lisez plus : [Wikibooks](https://fr.wikibooks.org/wiki/Programmation_Python/Modules)
 

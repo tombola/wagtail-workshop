@@ -1,33 +1,33 @@
----
-title: "Commentaires"
-metaTitle: "Commentaires | Introduction à Python"
-metaDescription: 'Site web pour "Écrivez votre premier programme en Python" #SolidairePasSolitaire'
----
+# Comments
 
-Tout ce qui suit un dièse (#) jusqu'à un retour à la ligne est un commentaire : ce n'est pas pris en compte par l'ordinateur. Mais cette règle ne s'applique pas lorsque le dièse est positionné dans une chaîne de caractères (entre quotes).
+Everything that follows a hash key (#) on that line is a comment. 
+The Python interpreter does not take that line as part of the instructions it has to follow. 
+This rule does not apply when the hash is placed in a string.
 
-Le but reste de produire du code compréhensible sans commentaire, mais ce texte affiché uniquement dans le code source, peut servir à expliquer à celui qui relit le code (y compris soi-même), les subtilités les moins évidentes de celui-ci.
-
-```python
-# Toute cette première ligne est un commentaire.
-print("Bonjour le monde") # Ceci est également un commentaire
-print("Bonjour"); print("Le monde"); # Ceci est une ligne comportant
-# plusieurs instructions
-print("Cette ligne ne contient pas de #commentaire")
-```
-
-### Commentaires de bloc
-
-Les commentaires de bloc (block comments en anglais) permettent de commenter plusieurs lignes. En Python, ils sont assurés par des triples apostrophes ou guillemets :
+Comments help us or other developers understand the code we write. We can add descriptions of
+what the code does (or is meant to do) in order to remember what we did one week, month or year
+ down the line.
 
 ```python
-print('début')
-'''
-Le paragraphe suivant est commenté
-sur plusieurs lignes
-'''
-print('fin')
+# This line is a comment
+print("Hello, world") # This is also a comment.
+print("Hello"); print("World"); # This is an imporant line of code
+# some instructions
+print("This line doesn't have any #comments")
 ```
 
-Lisez plus : [Wikibooks](https://fr.wikibooks.org/wiki/Programmation_Python/Afficher_un_texte#Commentaires)
+### Block comments
+
+Block comments allow us to write comments on several lines. In Python, we denote these with tripple quotes:
+
+```python
+print('start')
+'''
+This little paragraph is
+a
+multiline comment
+'''
+print('end')
+```
+
 

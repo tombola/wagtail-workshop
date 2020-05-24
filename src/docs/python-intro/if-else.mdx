@@ -1,47 +1,42 @@
----
-title: "If/else"
-metaTitle: "If/else | Introduction à Python"
-metaDescription: 'Site web pour "Écrivez votre premier programme en Python" #SolidairePasSolitaire'
----
+# If statements
 
-Cette notion est l'une des plus importante en programmation (Bill Gates en parle tout le temps). 
+This is one of the most important concepts of programming (Bill Gates talks about it all the time).
 
-Très souvent en programmation, les instructions sont dépendantes sur les actions ou valeurs précédentes.
+Often in programming, the instructions we give to the computer dependent on certain actions or values.
 
-Par exemple :
+For example:
 
-`Si` une personne a moins de 18 ans, elle ne peut pas voter. `Sinon` elle peut voter.
+`If` someone is under 18, the can't vote. `Else` they can vote.
 
 ```python
 if age < 18 :
-	print("Vous pouvez pas voter")
+	print("You can't vote")
 else:
-	print("Vous pouvez voter")
+	print("You can vote")
 ```
 
-Le code dessus est appelé un **if statement**.
+The code above is called an **if statement**.
 
-On peut ajouter une autre condition aux if statements - `elif`. Un `elif` est comme un `if` mais avec une condition différente.
+We can also add supplementary conditions to if statements - `elif`. 
+An `elif` is just like an `if`, it just has a different condition.
 
-Prenons l'exemple d'avant :
+Let's take the example from before:
 
 ```python
 if age < 18 :
-	print("Vous pouvez pas voter")
+	print("You can vote.")
 elif age == 18:
-	print("Felicitations ! Vous pouvez voter")
+	print("Congratulations! You can vote")
 else:
-	print("Vous pouvez voter")
+	print("You've been voting.")
 ```
 
 
+`if` and `elif` must have conditions after them. The computer checks if the value of the condition is `True` in order to decide what to do. If the condition is `True`, the code below the `if` or `elif` is executed. 
 
-`if` et `elif` doivent avoir les conditions juste après. L'ordinateur vérifie si la condition est vrai (`True`) pour décider quoi faire. Si la condition est `True`, le code dessous le `if` ou `elif`  est exécuté. 
+If the condition is `False` the code below the `else` is executed. 
 
-Si la condition est fausse (`False`) le code dessous `else` est exécuté. 
+To show equality in Python, we use two `=`, because one `=` is used for variable declaration.
 
-Pour représenter l'égalité en Python, on utilise deux `=`, parce une `=` est pour la déclaration des variables.
-
-Il y a plus d'informations [ici](https://python.doctor/page-apprendre-conditions-structures-conditionnelles-if-else-python-cours-debutant)
 
 
