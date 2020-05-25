@@ -2,22 +2,22 @@
 
 There are a few things we need to do to get our site production ready, and also some specifics for deploying it to heroku. First off, make sure you have a heroku account.
 
-Install the Heroku CLI, [https://devcenter.heroku.com/articles/heroku-cli](https://devcenter.heroku.com/articles/heroku-cli) We'll use this for creating the app and some settings changes.
+Then we'll need to tnstall the Heroku CLI, [https://devcenter.heroku.com/articles/heroku-cli](https://devcenter.heroku.com/articles/heroku-cli) We'll use this for creating the heroku site and some settings changes.
 
-We are going to be using a different database driver for heroku. Install PostgreSql like so:
+We are going to be using a different database driver (Postgres) for heroku. Install PostgreSql like so:
 
 ```bash
 pip install psycopg2
 pip install dj_database_url
 ```
 
-As our Heroku app will be accessible to the rest of the web, we'll want to use our production settings rather than our local settings. Our local settings have Debug=True set, and utilise Django's built in static file serving mechanism which is not secure.
+As our Heroku app will be accessible to the rest of the web, we'll want to use our production settings rather than our local settings. Our local settings have `Debug=True` set, and utilise Django's built in static file serving mechanism which is not secure.
 
 First of all, we'll add the following settings into our production.py settings file. These new settings firstly allow us to take advantage of Heroku's PostgreSQL plugin. The ALLOWED_HOSTS setting is necessary to allow Heroku to run our app at the auto-generated domain that it will create.
 
 Open up mysite/settings/production.py and change it to look like this:
 
-```python lineNumbers=true
+```python title=mysite/settings/base.py
 import os
 import dj_database_url
 from .base import *
@@ -41,7 +41,7 @@ except ImportError:
    pass
 ```
 
-Next, install the various requirements that Heroku looks for when hosting a Wagtail/Django application. These all come together in a pip package called django-toolbelt. We'll install this, and then use the pip freeze command to update our requirements.txt file.
+Next, install the various requirements that Heroku looks for when hosting a Wagtail/Django application. These all come together in a pip package called `django-toolbelt`. We'll install this, and then use the `pip freeze` command to update our requirements.txt file.
 
 ```bash
 pip install django-toolbelt
@@ -50,9 +50,9 @@ pip freeze > requirements.txt
 
 The pip freeze command should have updated your `requirements.txt` file if successful
 
-**Create a procfile.** Heroku requires you to create a file called Procfile, in which you declare the commands to be run by your application's Dynos. Your Procfile should be located in the root directory of your app, the same directory in which your [manage.py](http://manage.py/) file is located. In this case you only need one line in this file:
+**Create a procfile.** Heroku requires you to create a file called Procfile, in which you declare the commands to be run by your application's Dynos. Your Procfile should be located in the root directory of your app, the same directory in which your `manage.py` file is located. In this case you only need one line in this file:
 
-```Procfile
+```Procfile title=./Procfile
 web: gunicorn mysite.wsgi --log-file -
 ```
 
@@ -64,16 +64,14 @@ git commit -m "Heroku configuration"
 git push origin master
 ```
 
-If you haven't install the heroku CLI, you'll want to do it now [https://devcenter.heroku.com/articles/heroku-cli](https://devcenter.heroku.com/articles/heroku-cli)
-
-We will use this to create our heroku app. We will pull our code from github into this app. You may be asked to login when first using the heroku cli, it's the same acount details as your web account you set up.
+We will use the heroku cli to create our heroku app. We will pull our code from github into the heroku app. You may be asked to login when first using the heroku cli, it's the same acount details as your web account you set up.
 
 ```bash
 heroku create codersofcolour  # Replace with your name
-git push heroku master # Pushes your committed code up to your new app
+git push heroku master # Pushes your committed code up to the heroku remote
 ```
 
-If you ran `heroku create` from your project root, you should find you have a new git remote added (heroku), if not you'll have to add it manually :/
+If you ran `heroku create` from your project root, you should find you have a new git remote added (heroku), if not you'll have to add it manually.
 
 After running this you should see a lot of noise in your terminal whilst heroku does it's thing.
 
@@ -81,7 +79,7 @@ After this is done, heroku should have built your site. In the project on the he
 
 ![](../../images/pd_1.png)
 
-*Note that heroku attached a database for us, you can see it's also added the environment variable for the database under the settings tab by clicking 'reveal config vars'.
+> Note that heroku attached a database for us, you can see it's also added the environment variable for the database under the settings tab by clicking 'reveal config vars'.
 
 ![](../../images/pd_2.png)
 
@@ -126,7 +124,7 @@ pip freeze > requirements.txt
 
 Now you need to add Whitenoise to your MIDDLEWARE. Open settings/base.py and add whitenoise. Note This MUST go after ...SecurityMiddleware
 
-```python lineNumbers=true
+```python title=mysite/settings/base.py
 MIDDLEWARE = [
     ...
     'django.middleware.security.SecurityMiddleware',
@@ -137,7 +135,7 @@ MIDDLEWARE = [
 
 Now let's change our static file storage type, and some compression settings. Open settings/production.py and add this:
 
-```python lineNumbers=true
+```python lineNumbers=true title=mysite/settings/base.py
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 COMPRESS_OFFLINE = True
 COMPRESS_CSS_FILTERS = [
@@ -154,7 +152,7 @@ git add .
 git commit -m "Added Whitenoise"
 ```
 
-Before we push this up to heroku. Let's configure github to automatically pull in deployments when we push to master. Go to the deploy tab in heroku and configure github by searching for our repo:
+Before we push this up to the heroku remote like we did before, let's configure github to automatically pull in deployments when we push to master. Go to the deploy tab in heroku and configure github by searching for our repo:
 
 ![](../../images/pd_4.gif)
 
@@ -162,9 +160,17 @@ Then click the button below to enable deployments automatically when the master 
 
 ![](../../images/pd_5.png)
 
-Note: We won't have a CI so there is potential to add migration files that may pottentially cause damage, I can talk more about this but it boils down to migration files conflicting. Usually the heroku build will just fail though. You can just use manual deployments if you prefer though (button a bit lower down to pull the code in from github.
+> We won't have a CI so there is potential to add migration files that may cause damage. This may happen when migration files conflict. Usually the heroku build will fail if this happens.
+>
+> Migration conflicts is a large topic when working with CMS frameworks like django. There are some things Django can do to help deal with this, one comman practice is to use "merge migrations" when you have some migration files that have been generated with the same id in the same app, E.G 006_change_field, and 006_update_text_field. Django can't apply both of these to the database as it tracks by the migration file id (006_) so it knows what has and hasn't been applied.
+>
+> Take some time to familiarise yourself with migration management:
+> - https://docs.djangoproject.com/en/3.0/topics/migrations/
+> - https://www.algotech.solutions/blog/python/django-migrations-and-how-to-manage-conflicts/
+>
+> You can use manual deployments if you prefer though (button a bit lower down to pull the code in from github.
 
-Not locally, just push to the github origin (not heroku), and the app should build.
+If you sucessfully connected github, just push to the github origin (not heroku), and the app should build.
 
 ```bash
 git add .
@@ -178,4 +184,4 @@ You may notice the app not loading on heroku here, if that's the case add gunico
 gunicorn==19.9.0
 ```
 
-Whenever you run pip freeze, be sure your virtual environment is activated. I messed up during this! You should now see your styling coming through. E.G [https://codersofcolour.herokuapp.com/](https://codersofcolour.herokuapp.com/)
+You should now see your styling coming through. E.G [https://codersofcolour.herokuapp.com/](https://codersofcolour.herokuapp.com/)
