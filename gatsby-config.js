@@ -18,7 +18,7 @@ module.exports = {
       options: {
         configPath: `src/config`,
         docsPath: `src/docs`,
-        githubUrl: `http://github.com/tolulope/wagtail-workshop`,
+        githubUrl: `http://github.com/Tolulope/wagtail-workshop`,
         baseDir: `examples/gatsby-theme-docs`,
       },
     },
@@ -47,5 +47,6 @@ module.exports = {
       },
     },
     `gatsby-plugin-offline`,
+    `gatsby-plugin-sass`,
   ],
 };

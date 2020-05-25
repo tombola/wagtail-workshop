@@ -3,51 +3,44 @@
 
 Log into your heroku site by going to /admin. We already ran the createsuperuser command earlier so your account should be set up. Go to Images in the left hand menu. You'll find that when adding images this happens:
 
-![https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBlmxgZkEjpnlvJEz%2Fimages.gif?generation=1585500595274043&alt=media](https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBlmxgZkEjpnlvJEz%2Fimages.gif?generation=1585500595274043&alt=media)
+![](../../images/aws_1.gif)
 
 While Whitenoise is a handy solution for static assets, it is not intended to handle media assets. There are a few reasons for this. The main reason being that it only checks for files at startup so anything uploaded by a user won’t be seen. It could also open your project up to security risks if you use Whitenoise for media files. Amazon's S3 service is perfect for this.
 
 Do this [https://wagtail.io/blog/amazon-s3-for-media-files/](https://wagtail.io/blog/amazon-s3-for-media-files/)
 
 For setting up S3 we are going to use a tool called `buckup` created by Tomasz at Torchbox and we will need to install django storages and boto3. Add these to you virtual env
+
 ```bash
-    $ pip install buckup
-    $ pip install django-storages
-    $ pip install boto3
-    $ pip freeze > requirements.txt
+pip install buckup
+pip install django-storages
+pip install boto3
+pip freeze > requirements.txt
 ```
 
 We will also be using the AWS CLI. So install that if you haven't already.
 
-We''l mostly follow the instructions on buckup [https://github.com/torchbox/buckup#usage](https://github.com/torchbox/buckup#usage). We'' set the bucket up first before configuring the site.
+We'll mostly follow the instructions on buckup [https://github.com/torchbox/buckup#usage](https://github.com/torchbox/buckup#usage). We'' set the bucket up first before configuring the site.
 
 In the AWS console locate the IAM user management from the main menu
 
-![Session%204%20Setting%20up%20AWS%20for%20media%20files/Screenshot_2020-04-16_at_01.51.20.png](Session%204%20Setting%20up%20AWS%20for%20media%20files/Screenshot_2020-04-16_at_01.51.20.png)
-
-![https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBln8BhTq7BQMRl0f%2FUntitled%208.png?generation=1585500595256454&alt=media](https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBln8BhTq7BQMRl0f%2FUntitled%208.png?generation=1585500595256454&alt=media)
+![](../../images/aws_2.png)
 
 Click Users > then Add user
 
 I'm going to call my user `cocdersofcolouruser`
 
-![https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBln9rrTeMyUTxE-C%2FUntitled%209.png?generation=1585500595256135&alt=media](https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBln9rrTeMyUTxE-C%2FUntitled%209.png?generation=1585500595256135&alt=media)
+![](../../images/aws_3.png)
 
 Next you will be asked to add the user to a group. For now, we'll set up a ful S3 user. This should probably be more restricted in reality though, not entirely sure.
 
 In a new tab, Locate the groups link in the left menu and click Create new group
 
-![https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBlmz04-S2Xz0tXTr%2FUntitled%2010.png?generation=1585500595281768&alt=media](https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBlmz04-S2Xz0tXTr%2FUntitled%2010.png?generation=1585500595281768&alt=media)
+![](../../images/aws_4.png)
 
 Group Name: S3 (you can see I already have s3full)
 
-![Session%204%20Setting%20up%20AWS%20for%20media%20files/Screenshot_2020-04-16_at_01.53.56.png](Session%204%20Setting%20up%20AWS%20for%20media%20files/Screenshot_2020-04-16_at_01.53.56.png)
-
 The next screen will ask you to attach a policy. Search for s3 and find AmazonS3FullAccess, tick it and click next step.
-
-![Session%204%20Setting%20up%20AWS%20for%20media%20files/Screenshot_2020-04-16_at_01.55.16.png](Session%204%20Setting%20up%20AWS%20for%20media%20files/Screenshot_2020-04-16_at_01.55.16.png)
-
-![Session%204%20Setting%20up%20AWS%20for%20media%20files/Screenshot_2020-04-16_at_01.56.18.png](Session%204%20Setting%20up%20AWS%20for%20media%20files/Screenshot_2020-04-16_at_01.56.18.png)
 
 When your group is created, switch back to your IAM user tab
 
@@ -55,25 +48,31 @@ Click the refresh button next to create group... you might be able to create the
 
 Tick the group we created to add it to the user and click next:tags bottom right
 
+![](../../images/aws_5.png)
+
+
 Skip this and click Next:review
 
 Now click Create User.
 
 You will need the Access key ID and Secret access key to use with Buckup. Read the message at the top - this is the last chance to see these access credentials. I recomend downloading the CSV, and putting them somewhere safe locally. Do not upload them anywhere!
 
-![https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBln0RmnVFiOGAOX9%2FUntitled%2012.png?generation=1585500595256262&alt=media](https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBln0RmnVFiOGAOX9%2FUntitled%2012.png?generation=1585500595256262&alt=media)
+![](../../images/aws_6.png)
+
 
 Back in our local terminal and in our virtual environment. We need to configure buckup to use the AWS user we just created.
+
 ```bash
-    $ aws configure
+aws configure
 ```
 
 You will be asked for your credentials we just viewed. Add those in and just accept defaults for the next items by pressing return.
 
 Now we can run buckup. So in our terminal, run `buckup`
+
 ```bash
-    $ buckup
-```  
+buckup
+```
 
 Buckup will prompt you for information. Here is some help
 
@@ -93,17 +92,19 @@ Buckup will prompt you for information. Here is some help
         fonts or JS in your bucket. Wagtail kit configuration uses Whitenoise to serve static files.
 
 After you answered the questions you should be prompted with the summary like the one below.
+
 ```bash
-    SUMMARY:
-        region: eu-west-1
-        bucket_name: codersofcolour
-        user_name: codersofcolour-s3-owner
-        enable_versioning: False
-        public_get_object_paths: frozenset({'"images/*"'})
-        cors_origins: []
+SUMMARY:
+    region: eu-west-1
+    bucket_name: codersofcolour
+    user_name: codersofcolour-s3-owner
+    enable_versioning: False
+    public_get_object_paths: frozenset({'"images/*"'})
+    cors_origins: []
+
     Do you want to create a bucket with the above details? [y/n]
-    >>> 
-``` 
+    >>>
+```
 
 After you type `y` your bucket will be created. If it fails in the middle the previous steps won't be reverted - ask for help clean up the mess and investigate why it did not work.
 
@@ -111,22 +112,24 @@ After bucket has been successfully created, the program will display three impor
 
 Whilst we can see our access details to the bucket in the terminal that buckup just gave us, lets add them to the heroku variables in settings > reveal config vars
 
-![https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBln1hoO7m17kB63i%2FUntitled%2013.png?generation=1585500595323868&alt=media](https://gblobscdn.gitbook.com/assets%2Fcoders-of-colour%2F-M3b5sod7LPfMjJA5H_v%2F-M3bBln1hoO7m17kB63i%2FUntitled%2013.png?generation=1585500595323868&alt=media)
+![](../../images/aws_7.png)
 
 Now we need to change a few things in our local site and push them up. The last thing we did was install django-storages and boto3.
 
 Next head over to the [base.py](http://base.py/) file in your project's settings directory and add the following chunk of code. Theis will enable the storages only when it finds the env vars... which will be on heroku.
-```python
-    env = os.environ.copy() # Add this near the top after the imports
-    # add this towards or at the bottom
-    if "AWS_STORAGE_BUCKET_NAME" in env:
-        INSTALLED_APPS.append("storages")
-        DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-        AWS_STORAGE_BUCKET_NAME = env["AWS_STORAGE_BUCKET_NAME"]
-        AWS_QUERYSTRING_AUTH = False
-        AWS_S3_FILE_OVERWRITE = False
-        if "AWS_S3_CUSTOM_DOMAIN" in env:
-            AWS_S3_CUSTOM_DOMAIN = env["AWS_S3_CUSTOM_DOMAIN"]
+
+```python lineNumbers=true
+env = os.environ.copy() # Add this near the top after the imports
+
+# add this towards or at the bottom
+if "AWS_STORAGE_BUCKET_NAME" in env:
+    INSTALLED_APPS.append("storages")
+    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+    AWS_STORAGE_BUCKET_NAME = env["AWS_STORAGE_BUCKET_NAME"]
+    AWS_QUERYSTRING_AUTH = False
+    AWS_S3_FILE_OVERWRITE = False
+    if "AWS_S3_CUSTOM_DOMAIN" in env:
+        AWS_S3_CUSTOM_DOMAIN = env["AWS_S3_CUSTOM_DOMAIN"]
         AWS_S3_URL_PROTOCOL = env.get("AWS_S3_URL_PROTOCOL", "https:")
 ```
 
@@ -135,9 +138,10 @@ Git commit those changes and push them up... if successful your image uploads sh
 One final change.
 
 When it comes to running migrations, `./manage.py migrate` for the database changes. We don't want to have to run this manually every time on heroku. So you can add this to your Procfile, really we should be testing this with CI but for now it's ok. Open your Procfile and add the top `release` line you see here.
+
 ```bash
-    release: python manage.py migrate
-    web: gunicorn mysite.wsgi --log-file -
-``` 
+release: python manage.py migrate
+web: gunicorn mysite.wsgi --log-file -
+```
 
 Again git commit and push that.
