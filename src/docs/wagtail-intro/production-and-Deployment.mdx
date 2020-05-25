@@ -77,15 +77,15 @@ After running this you should see a lot of noise in your terminal whilst heroku 
 
 After this is done, heroku should have built your site. In the project on the heoku UI you should see something like this:
 
-![](../../images/pd_1.png)
+![](./pd_1.png)
 
 > Note that heroku attached a database for us, you can see it's also added the environment variable for the database under the settings tab by clicking 'reveal config vars'.
 
-![](../../images/pd_2.png)
+![](./pd_2.png)
 
 If you click **Open app** now, you'll probably see an error page
 
-![](../../images/pd_3.png)
+![](./pd_3.png)
 
 This is throwing an error because we haven't ran `./manage,py migrate` on heroku to populate the database. Also remember we specified DEBUG=False in our production settings file? Well we shouldn't be seeing this ugly error screen at all, it's for developers. This is because we haven't told heroku to use our production settings file. Let's fix it.
 
@@ -154,11 +154,11 @@ git commit -m "Added Whitenoise"
 
 Before we push this up to the heroku remote like we did before, let's configure github to automatically pull in deployments when we push to master. Go to the deploy tab in heroku and configure github by searching for our repo:
 
-![](../../images/pd_4.gif)
+![](./pd_4.gif)
 
 Then click the button below to enable deployments automatically when the master branch changes in github.
 
-![](../../images/pd_5.png)
+![](./pd_5.png)
 
 > We won't have a CI so there is potential to add migration files that may cause damage. This may happen when migration files conflict. Usually the heroku build will fail if this happens.
 >

@@ -2,7 +2,7 @@
 
 Log into your heroku site by going to /admin. We already ran the createsuperuser command earlier so your account should be set up. Go to Images in the left hand menu. You'll find that when adding images this happens:
 
-![](../../images/aws_1.gif)
+![asd](./aws_1.gif)
 
 While Whitenoise is a handy solution for static assets, it is not intended to handle media assets. There are a few reasons for this. The main reason being that it only checks for files at startup so anything uploaded by a user won’t be seen. It could also open your project up to security risks if you use Whitenoise for media files. Amazon's S3 service is perfect for this.
 
@@ -25,19 +25,19 @@ We'll mostly follow the instructions on buckup [https://github.com/torchbox/buck
 
 In the AWS console locate the IAM user management from the main menu
 
-![](../../images/aws_2.png)
+![as](./aws_2.png)
 
 Click Users > then Add user
 
 I'm going to call my user `cocdersofcolouruser`
 
-![](../../images/aws_3.png)
+![](./aws_3.png)
 
 Next you will be asked to add the user to a group. For now, we'll set up a full S3 user.
 
 In a new tab, Locate the groups link in the left menu and click Create new group
 
-![](../../images/aws_4.png)
+![](./aws_4.png)
 
 Group Name: S3 (you can see I already have s3full)
 
@@ -49,7 +49,7 @@ Click the refresh button next to create group.
 
 Tick the group we created to add it to the user and click next:tags, bottom right
 
-![](../../images/aws_5.png)
+![](./aws_5.png)
 
 Skip this and click Next:review
 
@@ -57,7 +57,7 @@ Now click Create User.
 
 You will need the Access key ID and Secret access key to use with Buckup. **Read the message at the top - this is the last chance to see these access credentials**. I recommend downloading the CSV, and putting them somewhere safe locally, we'll need them when running the buckup tool locally to create the AWS bucket. Do not upload them anywhere!
 
-![](../../images/aws_6.png)
+![](./aws_6.png)
 
 
 Back in our local terminal and in our virtual environment. We need to configure buckup to use the AWS user we just created.
@@ -115,7 +115,7 @@ We will set these as environment variables on heroku.
 
 Whilst we can see our access details to the bucket in the terminal that buckup just gave us, lets add them to the heroku variables in settings > reveal config vars
 
-![](../../images/aws_7.png)
+![](./aws_7.png)
 
 Now we need to change a few things in our local site and push them up. The last thing we did was install django-storages and boto3.
 
