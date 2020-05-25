@@ -1,15 +1,16 @@
 # Session 4 - Setting up AWS for media files
 
-
 Log into your heroku site by going to /admin. We already ran the createsuperuser command earlier so your account should be set up. Go to Images in the left hand menu. You'll find that when adding images this happens:
 
 ![](../../images/aws_1.gif)
 
 While Whitenoise is a handy solution for static assets, it is not intended to handle media assets. There are a few reasons for this. The main reason being that it only checks for files at startup so anything uploaded by a user won’t be seen. It could also open your project up to security risks if you use Whitenoise for media files. Amazon's S3 service is perfect for this.
 
-Do this [https://wagtail.io/blog/amazon-s3-for-media-files/](https://wagtail.io/blog/amazon-s3-for-media-files/)
+For setting up S3 we are going to use a tool called `buckup` created by Tomasz at Torchbox and we will need to install django storages and boto3.
 
-For setting up S3 we are going to use a tool called `buckup` created by Tomasz at Torchbox and we will need to install django storages and boto3. Add these to you virtual env
+> Buckup is a great tool for creating AWS buckets, it takes a lot of the pain away from working with AWS. But if you prefer to set up the bucket manually, there is a great guide on the Wagtail blog: [https://wagtail.io/blog/amazon-s3-for-media-files/](https://wagtail.io/blog/amazon-s3-for-media-files/)
+
+For using buckup, add these to you local site
 
 ```bash
 pip install buckup
@@ -20,7 +21,7 @@ pip freeze > requirements.txt
 
 We will also be using the AWS CLI. So install that if you haven't already.
 
-We'll mostly follow the instructions on buckup [https://github.com/torchbox/buckup#usage](https://github.com/torchbox/buckup#usage). We'' set the bucket up first before configuring the site.
+We'll mostly follow the instructions on buckup [https://github.com/torchbox/buckup#usage](https://github.com/torchbox/buckup#usage). We'll set the bucket up first before configuring the site to use it for media.
 
 In the AWS console locate the IAM user management from the main menu
 
@@ -32,7 +33,7 @@ I'm going to call my user `cocdersofcolouruser`
 
 ![](../../images/aws_3.png)
 
-Next you will be asked to add the user to a group. For now, we'll set up a ful S3 user. This should probably be more restricted in reality though, not entirely sure.
+Next you will be asked to add the user to a group. For now, we'll set up a full S3 user.
 
 In a new tab, Locate the groups link in the left menu and click Create new group
 
@@ -44,18 +45,17 @@ The next screen will ask you to attach a policy. Search for s3 and find AmazonS3
 
 When your group is created, switch back to your IAM user tab
 
-Click the refresh button next to create group... you might be able to create the group directly from there, not sure though, I always do it in a new tab because AWS is weird.
+Click the refresh button next to create group.
 
-Tick the group we created to add it to the user and click next:tags bottom right
+Tick the group we created to add it to the user and click next:tags, bottom right
 
 ![](../../images/aws_5.png)
-
 
 Skip this and click Next:review
 
 Now click Create User.
 
-You will need the Access key ID and Secret access key to use with Buckup. Read the message at the top - this is the last chance to see these access credentials. I recomend downloading the CSV, and putting them somewhere safe locally. Do not upload them anywhere!
+You will need the Access key ID and Secret access key to use with Buckup. **Read the message at the top - this is the last chance to see these access credentials**. I recommend downloading the CSV, and putting them somewhere safe locally, we'll need them when running the buckup tool locally to create the AWS bucket. Do not upload them anywhere!
 
 ![](../../images/aws_6.png)
 
@@ -87,9 +87,7 @@ Buckup will prompt you for information. Here is some help
 5. What paths do you want to allow the public to perform s3:getObject on? Please provide comma separated list of paths, e.g. `images/*`.
     - If you create it for a standard Wagtail site, you probably only need to whitelist `images/*`. Documents are served by a Wagtail view, not directly from the storage so no need to worry about that.
 6. Specify a comma separated list of origins whitelisted for the CORS, e.g. "[https://example.com](https://example.com/)" (not required)
-    - Leave this empty. It's only relevant if you host static assets like
-
-        fonts or JS in your bucket. Wagtail kit configuration uses Whitenoise to serve static files.
+    - Leave this empty. It's only relevant if you host static assets like fonts or JS in your bucket. We configured our site to use Whitenoise to serve static files earlier.
 
 After you answered the questions you should be prompted with the summary like the one below.
 
@@ -106,9 +104,14 @@ SUMMARY:
     >>>
 ```
 
-After you type `y` your bucket will be created. If it fails in the middle the previous steps won't be reverted - ask for help clean up the mess and investigate why it did not work.
+After you type `y` your bucket will be created. If it fails in the middle the previous steps won't be reverted - you'll need to manually delete the bucket in the AWS console, figure out what went wrong and re-run buckup.
 
-After bucket has been successfully created, the program will display three important pieces of information that lets you use your bucket in your application - bucket name, access key ID and secret access key - that you can set as environment variables in your server configuration.
+After bucket has been successfully created, the program will display three important pieces of information that lets you use your bucket in your application:
+ - bucket name
+ - access key ID
+ - secret access key
+
+We will set these as environment variables on heroku.
 
 Whilst we can see our access details to the bucket in the terminal that buckup just gave us, lets add them to the heroku variables in settings > reveal config vars
 
@@ -116,9 +119,9 @@ Whilst we can see our access details to the bucket in the terminal that buckup j
 
 Now we need to change a few things in our local site and push them up. The last thing we did was install django-storages and boto3.
 
-Next head over to the [base.py](http://base.py/) file in your project's settings directory and add the following chunk of code. Theis will enable the storages only when it finds the env vars... which will be on heroku.
+Next head over to the `base.py` file in your project's settings directory and add the following chunk of code. This will enable the storages only when it finds the environment variables... which will only be on heroku., so locally we don't use the AWS bucket but we can still test using media.
 
-```python lineNumbers=true
+```python title=mysite/settings/base.py
 env = os.environ.copy() # Add this near the top after the imports
 
 # add this towards or at the bottom
@@ -139,9 +142,9 @@ One final change.
 
 When it comes to running migrations, `./manage.py migrate` for the database changes. We don't want to have to run this manually every time on heroku. So you can add this to your Procfile, really we should be testing this with CI but for now it's ok. Open your Procfile and add the top `release` line you see here.
 
-```bash
+```bash title=Procfile
 release: python manage.py migrate
 web: gunicorn mysite.wsgi --log-file -
 ```
 
-Again git commit and push that.
+Finally commit the changes to git and push up to github.
