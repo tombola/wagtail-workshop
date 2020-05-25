@@ -62,17 +62,17 @@
 
 - label: Wagtail Course
   items:
-    - label: 'Session 2 - Locally building our website'
+    - label: 'Locally building your website'
       link: '/wagtail-intro/locally-building-our-website'
-    - label: 'Session 3 - Production and Deployment'
+    - label: 'Production and Deployment'
       link: '/wagtail-intro/production-and-Deployment'
-    - label: 'Session 4 - Setting up AWS for media files'
+    - label: 'Setting up AWS for media files'
       link: '/wagtail-intro/Session-4-Setting-up-AWS-for-media-files'
     - label: 'Additions for those ahead'
       link: '/wagtail-intro/Additions-for-those-ahead'
-    - label: 'Session 5 - Configuring a live URL'
+    - label: 'Configuring a live URL'
       link: '/wagtail-intro/Session-5-Configuring-a-live-URL'
-- label: Further additions to your site
-  items:
-    - label: 'Further Additions'
-      link: '/wagtail-intro/Further-additions'
+# - label: Further additions to your site
+#   items:
+#     - label: 'Further Additions'
+#       link: '/wagtail-intro/Further-additions'
