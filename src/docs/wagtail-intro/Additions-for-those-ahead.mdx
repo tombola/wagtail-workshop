@@ -1,17 +1,19 @@
 # Additions for those ahead
 
-# Further improvement suggestions if people are ahead:
+> If you are ahead on the wagtail workshop, this page contains some functionality you can add to your site.
 
-- Implement tagging [https://docs.wagtail.io/en/v2.8/getting_started/tutorial.html#tagging-posts](https://docs.wagtail.io/en/v2.8/getting_started/tutorial.html#tagging-posts)
-- Categories [https://docs.wagtail.io/en/v2.8/getting_started/tutorial.html#categories](https://docs.wagtail.io/en/v2.8/getting_started/tutorial.html#categories)
+## StreamField
 
-## StreamField (Extra step - optional)
+> StreamField provides a content editing model suitable for pages that do not follow a fixed structure – such as blog posts or news stories – where the text may be interspersed with subheadings, images, pull quotes and video. It’s also suitable for more specialised content types, such as maps and charts (or, for a programming blog, code snippets). In this model, these different content types are represented as a sequence of ‘blocks’, which can be repeated and arranged in any order.
+>
+> StreamField also offers a rich API to define your own block types, ranging from simple collections of sub-blocks (such as a ‘person’ block consisting of first name, surname and photograph) to completely custom components with their own editing interface. Within the database, the StreamField content is stored as JSON, ensuring that the full informational content of the field is preserved, rather than just an HTML representation of it.
+>
+> Read more about streamfields on the Wagtail docs https://docs.wagtail.io/en/v2.9/topics/streamfield.html
 
-Will need an explination of what streamfield is.
 
 To convert the body field of your blog post from a rich text field to a StreamField, update `blog/models.py`
 
-```python lineNumbers=true
+```python lineNumbers=true title=blog/models.py
 # to your imports, add:
 from wagtail.core.fields import StreamField
 from wagtail.core import blocks
@@ -41,19 +43,19 @@ Update your blog page template to output the new field type, replacing `{{ page.
 {% endfor %}
 ```
 
-Note the [docs for responsive embeds](http://docs.wagtail.io/en/latest/topics/writing_templates.html?highlight=responsive#responsive-embeds).
+> To made embed blocks responsive [see the Wagtail docs](http://docs.wagtail.io/en/latest/topics/writing_templates.html?highlight=responsive#responsive-embeds).
 
-## Third party apps (Extra step - optional)
+## Third party apps
 
 ### Awesome Wagtail
 
-[https://github.com/springload/awesome-wagtail](https://github.com/springload/awesome-wagtail)
+For a list of great third party apps you can use, see [https://github.com/springload/awesome-wagtail](https://github.com/springload/awesome-wagtail)
 
 ### Wagtail menus
 
-Follow the installation instructions at [wagtailmenus.readthedocs.io](http://wagtailmenus.readthedocs.io/en/latest/installation.html).
+For implementing a custom menu solution to your site, see  [wagtailmenus.readthedocs.io](http://wagtailmenus.readthedocs.io/en/latest/installation.html).
 
-Basic menu styling:
+Add some basic menu styling to your css:
 
 ```css
 .menu ul {
@@ -75,3 +77,10 @@ Basic menu styling:
     text-decoration: none;
 }
 ```
+
+## Tagging
+
+Have a go at implementing tagging for a page model, perhaps your blog could use this feature...
+
+- Implementing tagging [https://docs.wagtail.io/en/v2.8/getting_started/tutorial.html#tagging-posts](https://docs.wagtail.io/en/v2.8/getting_started/tutorial.html#tagging-posts)
+- Categories [https://docs.wagtail.io/en/v2.8/getting_started/tutorial.html#categories](https://docs.wagtail.io/en/v2.8/getting_started/tutorial.html#categories)
