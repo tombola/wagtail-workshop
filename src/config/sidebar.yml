@@ -7,17 +7,17 @@
 - label: Local set up
   items:
     - label: 'Git & Github'
-      link: '/wagtail-intro/local-set-up'
+      link: '/local-set-up/git-github'
     - label: 'Python'
       link: '/local-set-up/python'
     - label: 'Virtual env (venv)'
       link: '/local-set-up/venv'
     - label: 'AWS Account & CLI'
-      link: '/wagtail-intro/local-set-up'
+      link: '/local-set-up/aws'
     - label: 'Heroku'
-      link: '/wagtail-intro/local-set-up'
+      link: '/local-set-up/heroku'
     - label: 'VS Code'
-      link: '/wagtail-intro/local-set-up'
+      link: '/local-set-up/vs-code'
 
 - label: Introduction to GitHub
   items:
