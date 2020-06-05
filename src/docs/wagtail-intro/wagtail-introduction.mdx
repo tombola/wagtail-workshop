@@ -1,0 +1,29 @@
+# Introduction
+
+This section of the course is about building and deploying our wagtail site. We'll build our site locally, push it to github, and using heroku and AWS we will configure a production envoronment for your work to be live to the world.
+
+## Glossary of systems we will be using
+
+- Wagtail - An open source content management system.
+- Django - A very popular web framework written in python which wagtail is built on.
+- AWS - Amazon Web Services - Cloud hosting environment and file hosting. We will be using AWS to host media files.
+- Heroku - Cloud application platform we will use to host our website.
+- GitHub - Code hosting and version control
+
+## Conventions
+
+### What is an app?
+
+We refer to our entire website as a project. And the features we will be building are referred to as 'apps' (application). App usually tends to mean a small, isolated program you download and use, like an app for your phone. In django and wagtail, apps are directories containing code that defines certain features and functionality for your site.
+
+In Wagtail and Django we like to keep apps simple, and you should consider if you need to create a new app for a new feature or if it makes sense to in an exsisting app. Small, isolated apps help keep them portable and encourages re-use. You can install apps other people make into your own project.
+
+You can read a more detailed overview about apps in the [Django docs](https://docs.djangoproject.com/en/3.0/ref/applications/)
+
+### Local and Production data
+
+As is most common with web development, we will be building features and apps for our site locally in code, testing them by adding content and then pushing the code to productions. An important thing to note is that data, i.e content will no be pushed to production. This means that when you push your code live, the next step would be to publish content on the live site.
+
+### Useful links
+ - Wagtail docs https://docs.wagtail.io/en/stable/
+ - Django docs https://docs.djangoproject.com/en/3.0/

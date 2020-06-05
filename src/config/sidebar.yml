@@ -59,6 +59,8 @@
 
 - label: Wagtail Course
   items:
+    - label: 'Introduction'
+      link: '/wagtail-intro/wagtail-introduction'
     - label: 'Locally building your website'
       link: '/wagtail-intro/locally-building-our-website'
     - label: 'Production and Deployment'
