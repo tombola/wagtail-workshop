@@ -35,29 +35,26 @@
 - label: Introduction to Python
   items:
     - label: 'What is programming?'
-      link: '/python-intro/la-programmation'
+      link: '/python-intro/programming'
     - label: 'What is Python?'
-      link: '/python-intro/le-python'
-    - label: 'The power of Python'
-      link: '/python-intro/exemples'
+      link: '/python-intro/python'
     - label: 'Console and Files'
-      link: '/python-intro/console-fichier'
+      link: '/python-intro/console-file'
     - label: 'Hello World'
       link:  '/python-intro/hello-world'
     - label: 'Functions and Variables'
-      link:   '/python-intro/fonctions-variables'
+      link:   '/python-intro/functions-variables'
     - label: 'Lists'
-      link:   '/python-intro/listes'
+      link:   '/python-intro/lists'
     - label: 'Comments'
-      link:   '/python-intro/commentaires'
+      link:   '/python-intro/comments'
     - label: 'If statements'
       link:   '/python-intro/if-else'
     - label: 'Modules'
       link:   '/python-intro/modules'
     - label: 'Mini Project'
-      link:   '/python-intro/projet'
-    - label: 'Cheatsheet'
-      link:   '/python-intro/je-triche'
+      link:   '/python-intro/mini-project'
+
 
 
 - label: Wagtail Course
