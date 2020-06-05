@@ -54,7 +54,12 @@
       link:   '/python-intro/modules'
     - label: 'Mini Project'
       link:   '/python-intro/mini-project'
-
+    - label: 'Object Oriented Programming'
+      link:   '/python-intro/oop'
+    - label: ' Django'
+      link:   '/python-intro/django'
+    - label: ' Wagtail'
+      link:   '/python-intro/wagtail'
 
 
 - label: Wagtail Course

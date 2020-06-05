@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     siteTitle: `Introduction to Wagtail | Coders of Colour`,
     defaultTitle: `Introduction to Wagtail | Coders of Colour`,
-    siteTitleShort: `wagtail-intro`,
+    siteTitleShort: `Intro to Wagtail`,
     siteDescription: `Introduction to Wagtail Course by Kevin Howbrook and Coders of Colour`,
     siteUrl: `https://intro-wagtail.netlify.app`,
     siteAuthor: `Kevin Howbrook & Tolulope Ogunremi`,
