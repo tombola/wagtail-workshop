@@ -140,7 +140,7 @@ Git commit those changes and push them up... if successful your image uploads sh
 
 One final change.
 
-When it comes to running migrations, `./manage.py migrate` for the database changes. We don't want to have to run this manually every time on heroku. So you can add this to your Procfile, really we should be testing this with CI but for now it's ok. Open your Procfile and add the top `release` line you see here.
+When it comes to running migrations, `python manage.py migrate` for the database changes. We don't want to have to run this manually every time on heroku. So you can add this to your Procfile, really we should be testing this with CI but for now it's ok. Open your Procfile and add the top `release` line you see here.
 
 ```bash title=Procfile
 release: python manage.py migrate
