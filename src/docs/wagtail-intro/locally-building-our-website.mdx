@@ -162,7 +162,7 @@ python manage.py runserver
 
 > It's a good idea to have two terminal windows open whilest developing
 
-Go to the local site in your browser at [localhost:8000](http://localhost:8000/).
+Go to the local site in your browser at [http://localhost:8000/admin](http://localhost:8000/admin).
 
 From the admin menu select pages > home.
 
@@ -170,7 +170,7 @@ This will land you [http://localhost:8000/admin/pages/3/](http://localhost:8000/
 
 You should be on [http://localhost:8000/admin/pages/3/edit/](http://localhost:8000/admin/pages/3/edit/)
 
-Add some body text and select publish from the bottom bar.
+Add some body text and in the bottom bar click on the arrow next to "Save Draft" and click "Publish".
 
 ![edit homepage](./edit_home_page.png)
 
@@ -188,7 +188,7 @@ Edit `home/templates/home/home_page.html` to match (remove it all and replace it
 ```
 
 
-Your homepage title and field should now show on the root page of your local site at localhost / localhost
+Your homepage title and field should now show on the root page of your local site at [http://localhost:8000/](http://localhost:8000/).
 
 ## Create a blog app
 
@@ -196,7 +196,7 @@ Your homepage title and field should now show on the root page of your local sit
 >
 >If you find one app is solving two problems, split them into two apps. If you find two apps are so intertwined you could never reuse one without the other, combine them into a single app.
 
-First we need to create the blog app. This is done via the `mange.py` file. It should be created at the site root:
+First we need to create the blog app. This is done via the `manage.py` file. It should be created at the site root:
 
 ```bash
 python manage.py startapp blog
