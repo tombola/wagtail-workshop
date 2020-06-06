@@ -336,7 +336,7 @@ Make a file at `blog/templates/blog/blog_page.html` with this content:
     <p class="meta">{{ page.date }}</p>
     <div class="intro">{{ page.intro }}</div>
     {{ page.body|richtext }}
-    <p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
+    <p><a href="{% pageurl page.get_parent %}">Return to blog</a></p>
 {% endblock %}
 ```
 
@@ -421,7 +421,7 @@ Again, because we added a field to hold data... run `python manage.py makemigrat
     {% image page.image fill-320x320 %}
     <div class="intro">{{ page.intro }}</div>
         {{ page.body|richtext }}
-    <p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
+    <p><a href="{% pageurl page.get_parent %}">Return to blog</a></p>
 {% endblock %}
 ```
 
