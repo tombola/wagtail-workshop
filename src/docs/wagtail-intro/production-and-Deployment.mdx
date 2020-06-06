@@ -87,7 +87,7 @@ If you click **Open app** now, you'll probably see an error page
 
 ![](./pd_3.png)
 
-This is throwing an error because we haven't ran `./manage,py migrate` on heroku to populate the database. Also remember we specified DEBUG=False in our production settings file? Well we shouldn't be seeing this ugly error screen at all, it's for developers. This is because we haven't told heroku to use our production settings file. Let's fix it.
+This is throwing an error because we haven't ran `python manage,py migrate` on heroku to populate the database. Also remember we specified DEBUG=False in our production settings file? Well we shouldn't be seeing this ugly error screen at all, it's for developers. This is because we haven't told heroku to use our production settings file. Let's fix it.
 
 In heroku go to the settings tab and hit reveal config vars. Add 2 new values:
 

@@ -118,11 +118,11 @@ class HomePage(Page):
 
 ### Generate and run the migrations needed
 
-The changes we just made will need to be applied to the database. Here we are adding a body field, so the database needs to be able to store the information we add to the body. We do this using the `./manage.py` file with the two following commands:
+The changes we just made will need to be applied to the database. Here we are adding a body field, so the database needs to be able to store the information we add to the body. We do this using the `manage.py` file with the two following commands:
 
 ```bash
-./manage.py makemigrations
-./manage.py migrate
+python manage.py makemigrations
+python manage.py migrate
 ```
 
 The above commands should do the following:
@@ -132,13 +132,13 @@ The above commands should do the following:
 
 ```bash title=output
 (mysite-venv) kevin@mulder:~/shared/mysite/mysite
-./manage.py makemigrations Migrations for 'home': home/migrations/0003_homepage_body.py
+python manage.py makemigrations Migrations for 'home': home/migrations/0003_homepage_body.py
 ...
 ```
 
-### What is the ./manage.py file and ./migrate?
+### What is the manage.py file and migrate?
 
-The `manage.py` is a python file we use to execute administration tasks. When we run `./manage.py migrate` we are executing the django `migrate` method. This will create automatically create python files that define or adjust database schema. It saves us manually creating tables when we need them.
+The `manage.py` is a python file we use to execute administration tasks. When we run `python manage.py migrate` we are executing the django `migrate` method. This will create automatically create python files that define or adjust database schema. It saves us manually creating tables when we need them.
 
 Migrations are Django’s way of propagating changes you make to your models (adding a field, deleting a model, etc.) into your database schema. They’re designed to be mostly automatic, but you’ll need to know when to make migrations, when to run them, and the common problems you might run into. Read more about migration on the [Django docs](https://docs.djangoproject.com/en/3.0/topics/migrations/)
 
@@ -156,7 +156,7 @@ class HomePage(Page):
 Check your terminal to see if the site is still running, if it isn't, run
 
 ```bash
-./manage.py runserver
+python manage.py runserver
 ```
 
 > It's a good idea to have two terminal windows open whilest developing
@@ -198,7 +198,7 @@ Your homepage title and field should now show on the root page of your local sit
 First we need to create the blog app. This is done via the `mange.py` file. It should be created at the site root:
 
 ```bash
-./manage.py startapp blog
+python manage.py startapp blog
 ```
 
 so your file structure should now be:
@@ -261,7 +261,7 @@ class BlogIndexPage(Page):
 ```
 
 
-Similar to what we did earlier, run `./manage.py makemigrations` and `./manage.py migrate`. This will add define the schema in our database for the blog.
+Similar to what we did earlier, run `python manage.py makemigrations` and `python manage.py migrate`. This will add define the schema in our database for the blog.
 
 After running this, go the the cms admin and add a child page to our homepage:
 
@@ -288,7 +288,7 @@ Make a file at `blog/templates/blog/blog_index_page.html` with this content:
 {% endblock %}
 ```
 
-(Restart the local server if your template isn’t found by ctrl + c then ./manage.py runserver)
+(Restart the local server if your template isn’t found by ctrl + c then python manage.py runserver)
 
 **Add a model for blog posts**
 
@@ -321,7 +321,7 @@ class BlogPage(Page):
 ```
 
 
-Same again, run`./manage.py makemigrations` and `./manage.py migrate` to create the database changes
+Same again, run`python manage.py makemigrations` and `python manage.py migrate` to create the database changes
 
 **Create a template for blog posts**
 
@@ -408,7 +408,7 @@ image = models.ForeignKey(
 ImageChooserPanel('image'),
 ```
 
-Again, because we added a field to hold data... run `./manage.py makemigrations` and `./manage.py migrate`
+Again, because we added a field to hold data... run `python manage.py makemigrations` and `python manage.py migrate`
 
 ### Update the blog post template to output images
 
