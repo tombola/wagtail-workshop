@@ -87,7 +87,7 @@ If you click **Open app** now, you'll probably see an error page
 
 ![](./pd_3.png)
 
-This is throwing an error because we haven't ran `python manage,py migrate` on heroku to populate the database. Also remember we specified DEBUG=False in our production settings file? Well we shouldn't be seeing this ugly error screen at all, it's for developers. This is because we haven't told heroku to use our production settings file. Let's fix it.
+This is throwing an error because we haven't ran `python manage.py migrate` on heroku to populate the database. Also remember we specified DEBUG=False in our production settings file? Well we shouldn't be seeing this ugly error screen at all, it's for developers. This is because we haven't told heroku to use our production settings file. Let's fix it.
 
 In heroku go to the settings tab and hit reveal config vars. Add 2 new values:
 
@@ -122,7 +122,7 @@ pip install whitenoise
 pip freeze > requirements.txt
 ```
 
-Now you need to add Whitenoise to your MIDDLEWARE. Open settings/base.py and add whitenoise. Note This MUST go after ...SecurityMiddleware
+Now you need to add Whitenoise to your MIDDLEWARE. Open `settings/base.py` and add whitenoise. Note This MUST go after ...SecurityMiddleware
 
 ```python title=mysite/settings/base.py
 MIDDLEWARE = [
@@ -135,7 +135,7 @@ MIDDLEWARE = [
 
 Now let's change our static file storage type, and some compression settings. Open settings/production.py and add this:
 
-```python lineNumbers=true title=mysite/settings/base.py
+```python lineNumbers=true title=mysite/settings/production.py
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 COMPRESS_OFFLINE = True
 COMPRESS_CSS_FILTERS = [
