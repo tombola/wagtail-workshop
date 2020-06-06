@@ -86,13 +86,13 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-If everything worked, [http://127.0.0.1:8000](http://127.0.0.1:8000/) will show you a welcome page:
+If everything worked, [http://localhost:8000](http://localhost:8000/) will show you a welcome page:
 
 https://docs.wagtail.io/en/v2.8/_images/tutorial_1.png
 
 ![https://docs.wagtail.io/en/v2.8/_images/tutorial_1.png](https://docs.wagtail.io/en/v2.8/_images/tutorial_1.png)
 
-You can now access the administrative area at [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin)
+You can now access the administrative area at [http://localhost:8000/admin](http://localhost:8000/admin)
 
 https://docs.wagtail.io/en/v2.8/_images/tutorial_2.png
 
@@ -132,7 +132,8 @@ The above commands should do the following:
 
 ```bash title=output
 (mysite-venv) kevin@mulder:~/shared/mysite/mysite
-python manage.py makemigrations Migrations for 'home': home/migrations/0003_homepage_body.py
+python manage.py makemigrations
+Migrations for 'home': home/migrations/0003_homepage_body.py
 ...
 ```
 
@@ -161,13 +162,13 @@ python manage.py runserver
 
 > It's a good idea to have two terminal windows open whilest developing
 
-Go to the local site in your browser at 0.0.0.0:8000 or 127.0.0.1, or [localhost:8000](http://localhost:8000/) (depending on local hosts setup)
+Go to the local site in your browser at [localhost:8000](http://localhost:8000/).
 
 From the admin menu select pages > home.
 
-This will land you [http://0.0.0.0:8000/admin/pages/3/](http://0.0.0.0:8000/admin/pages/3/) which is your homepage. If there where child pages they would be listed here. Under the home title click 'edit' to edit the page. (note you can also do this straight from the admin menu by clicking page > then the small pencil icon.)
+This will land you [http://localhost:8000/admin/pages/3/](http://localhost:8000/admin/pages/3/) which is your homepage. If there where child pages they would be listed here. Under the home title click 'edit' to edit the page. (note you can also do this straight from the admin menu by clicking page > then the small pencil icon.)
 
-You should be on [http://0.0.0.0:8000/admin/pages/3/edit/](http://0.0.0.0:8000/admin/pages/3/edit/)
+You should be on [http://localhost:8000/admin/pages/3/edit/](http://localhost:8000/admin/pages/3/edit/)
 
 Add some body text and select publish from the bottom bar.
 
@@ -187,7 +188,7 @@ Edit `home/templates/home/home_page.html` to match (remove it all and replace it
 ```
 
 
-Your homepage title and field should now show on the root page of your local site at 0.0.0.0 / 127.0.0.1
+Your homepage title and field should now show on the root page of your local site at localhost / localhost
 
 ## Create a blog app
 
