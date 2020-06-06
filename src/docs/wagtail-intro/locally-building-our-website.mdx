@@ -116,7 +116,7 @@ class HomePage(Page):
     body = RichTextField(blank=True)
 ```
 
-Generate and run the migrations needed
+### Generate and run the migrations needed
 
 The changes we just made will need to be applied to the database. Here we are adding a body field, so the database needs to be able to store the information we add to the body. We do this using the `./manage.py` file with the two following commands:
 
