@@ -192,7 +192,7 @@ Your homepage title and field should now show on the root page of your local sit
 
 ## Create a blog app
 
-> An app refers to a submodule in our project. It's self-sufficient and not intertwined with the other apps in the project such that, in theory, you could pick it up and move it down into another project without any modification. An app typically has its own models.py. You might think of it as a standalone python module. A simple project might only have one app, whereas more complex projects or websites will have multiple apps that define deifferent models. E.G a news app defining a NewsPost model, a video app defining a VideoPage model etc.
+> An app refers to a submodule in our project. It's self-sufficient and not intertwined with the other apps in the project such that, in theory, you could pick it up and move it down into another project without any modification. An app typically has its own models.py. You might think of it as a standalone python module. A simple project might only have one app, whereas more complex projects or websites will have multiple apps that define different models. E.G a news app defining a NewsPost model, a video app defining a VideoPage model etc.
 >
 >If you find one app is solving two problems, split them into two apps. If you find two apps are so intertwined you could never reuse one without the other, combine them into a single app.
 
@@ -204,11 +204,11 @@ python manage.py startapp blog
 
 so your file structure should now be:
 ```bash
-tree -L 1
 .
 ├── blog # The blog app we just created
 ├── db.sqlite3
 ├── Dockerfile
+├── env
 ├── home
 ├── manage.py
 ├── mysite
@@ -216,12 +216,11 @@ tree -L 1
 └── search
 ```
 
-To view your file structure like above, type `tree -L 1` if you are using Windows, Mac: `brew install tree` and then `tree -L 1`  Linux: `sudo apt-get install tree -y` followed by `tree -L 1`
+To view your file structure like above, type `dir` if you are using Windows, and `ls` on Mac and Linux.
 
-The startapp command generated an app with some boilerplate files for us:
+The startapp command generated an app with some boilerplate files for us (use `dir blog` or `ls blog` to view the files):
 
 ```bash
-tree blog
 blog
 ├── admin.py
 ├── apps.py
