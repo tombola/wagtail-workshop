@@ -106,7 +106,6 @@ Next, setup the database. Back In your local terminal, from your project root ru
 ```bash
 heroku run python manage.py migrate
 heroku run python manage.py createsuperuser
-heroku ps:scale web=1  # Ensures that a new Dyno is running for your project
 ```
 
 The above is running similar shell commands we did locally, but using the heroku CLI we can run them on our heroku container.
