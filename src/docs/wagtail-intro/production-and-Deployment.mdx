@@ -4,12 +4,16 @@ There are a few things we need to do to get our site production ready, and also 
 
 Then we'll need to tnstall the Heroku CLI, [https://devcenter.heroku.com/articles/heroku-cli](https://devcenter.heroku.com/articles/heroku-cli) We'll use this for creating the heroku site and some settings changes.
 
-We are going to be using a different database driver (Postgres) for heroku. Install PostgreSql like so:
+Next, we need to install the various requirements that Heroku looks for when hosting a Wagtail/Django application. One of which is a better database driver for our live site, Postgres.
+
+These extra requirements come together in a pip package called [django-toolbelt](https://pypi.org/project/django-toolbelt/). We'll install this, and then use the `pip freeze` command to update our requirements.txt file.
 
 ```bash
-pip install psycopg2
-pip install dj_database_url
+pip install django-toolbelt
+pip freeze > requirements.txt
 ```
+
+The pip freeze command should have updated your `requirements.txt` file if successful
 
 As our Heroku app will be accessible to the rest of the web, we'll want to use our production settings rather than our local settings. Our local settings have `Debug=True` set, and utilise Django's built in static file serving mechanism which is not secure.
 
@@ -40,15 +44,6 @@ try:
 except ImportError:
    pass
 ```
-
-Next, install the various requirements that Heroku looks for when hosting a Wagtail/Django application. These all come together in a pip package called `django-toolbelt`. We'll install this, and then use the `pip freeze` command to update our requirements.txt file.
-
-```bash
-pip install django-toolbelt
-pip freeze > requirements.txt
-```
-
-The pip freeze command should have updated your `requirements.txt` file if successful
 
 **Create a procfile.** Heroku requires you to create a file called Procfile, in which you declare the commands to be run by your application's Dynos. Your Procfile should be located in the root directory of your app, the same directory in which your `manage.py` file is located. In this case you only need one line in this file:
 
@@ -106,7 +101,6 @@ Next, setup the database. Back In your local terminal, from your project root ru
 ```bash
 heroku run python manage.py migrate
 heroku run python manage.py createsuperuser
-heroku ps:scale web=1  # Ensures that a new Dyno is running for your project
 ```
 
 The above is running similar shell commands we did locally, but using the heroku CLI we can run them on our heroku container.
@@ -174,12 +168,6 @@ If you sucessfully connected github, just push to the github origin (not heroku)
 
 ```bash
 git push origin master
-```
-
-You may notice the app not loading on heroku here, if that's the case add gunicorn to you requirements.txt file and push it to github
-
-```bash
-gunicorn==19.9.0
 ```
 
 You should now see your styling coming through. E.G [https://codersofcolour.herokuapp.com/](https://codersofcolour.herokuapp.com/)
