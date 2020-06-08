@@ -375,7 +375,11 @@ Let's see what we have by going to our admin and checking the front end of the p
 
 ## Improve the blog listing
 
-Posts should be in reverse chronological order, and we should only list published content. Edit `models.py`, adding this `get_context` method to the `BlogIndexPage` class:
+The template that we added for the blog index shows each of the 'child' blog post pages already, but we can improve on this. 
+
+Posts should be in reverse chronological order, and we should only list published content. We will do this by adding a new variable to the 'context' that is passed to the template, and passing in a filtered and sorted list of blog posts, instead of just asking wagtail for all the child pages of that blog index.
+
+Edit `models.py`, adding this `get_context` method to the `BlogIndexPage` class:
 
 ```python lineNumbers=true title=blog/models.py
 class BlogIndexPage(Page):
@@ -394,8 +398,7 @@ class BlogIndexPage(Page):
         return context
 ```
 
-
-and update your blog index template to loop over `blogpages` instead of `page.get_children`.
+Now we can update the blog index template to loop over `blogpages` instead of `page.get_children`.
 
 
 ```python lineNumbers=true title=blog/templates/blog/blog_index_page.html
