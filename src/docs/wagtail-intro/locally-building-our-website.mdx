@@ -51,24 +51,6 @@ Use pip, which is packaged with Python, to install Wagtail and its dependencies:
 pip install wagtail
 ```
 
-You should now have a folder structure that looks like this:
-
-```bash
-└── mysite
-    ├── env
-    │   ├── bin
-    │   ├── include
-    │   ├── lib
-    │   └── pyvenv.cfg
-    └── mysite
-        ├── Dockerfile
-        ├── home
-        ├── manage.py
-        ├── mysite
-        ├── requirements.txt
-        └── search
-```
-
 ### Generate your site
 
 Wagtail provides a `start` command similar to `django-admin startproject`. Running `wagtail start mysite` in your project will generate a new `mysite` folder with a few Wagtail-specific extras, including the required project settings, a “home” app with a blank `HomePage` model and basic templates, and a sample “search” app.
