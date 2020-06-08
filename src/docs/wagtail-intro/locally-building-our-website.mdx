@@ -201,6 +201,8 @@ Add some body text and in the bottom bar click on the arrow next to "Save Draft"
 
 Your homepage has now been stored in the database. At present `0.0.0.0:8000` still shows the dafault welcome page, rather than our new homepage, however. In order to display our content, we need a  template to show django how it should be presented.
 
+Take a moment read through the [django documentation on templates](https://docs.djangoproject.com/en/3.0/ref/templates/language/#templates) for an overview of how this works. 
+
 Edit `home/templates/home/home_page.html`. Remove all of the current content (the welcome page) and replace it with the following:
 
 ```html title=home/templates/home/home_page.html
@@ -457,9 +459,6 @@ Again, because we added a field to hold data... run `python manage.py makemigrat
 
 ## Basic styling
 
-TODO Maybe explain here templates and template inheritance?
-
-> Take a moment read through the django documentation on templates https://docs.djangoproject.com/en/3.0/ref/templates/language/#templates
 
 Add [tachyons](https://tachyons.io/) to `mysite/templates/base.html`, before `{# Global stylesheets #}`:
 
