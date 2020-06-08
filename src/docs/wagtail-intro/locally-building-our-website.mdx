@@ -460,7 +460,9 @@ Again, because we added a field to hold data... run `python manage.py makemigrat
 ## Basic styling
 
 
-Add [tachyons](https://tachyons.io/) to `mysite/templates/base.html`, before `{# Global stylesheets #}`:
+Although the basic content is being shown, it doesn't look great.
+
+To get some styling in place that will make this blog a bit more presentable, we can add some CSS. To get us started with the minimum of effort, are going to use an existing CSS framework called [tachyons](https://tachyons.io/), rather than writing all the CSS ourselves. Add the following to `mysite/templates/base.html`, before `{# Global stylesheets #}`:
 
 ```html title=mysite/templates/base.html
 <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
@@ -468,7 +470,7 @@ Add [tachyons](https://tachyons.io/) to `mysite/templates/base.html`, before `{#
 <link rel="stylesheet" href="https://unpkg.com/tachyons@4.10.0/css/tachyons.min.css"/>
 ```
 
-wrap the content block in a container div and add the tachyons classes to style the widths of the container:
+Wrap the content block in a container div and add the tachyons classes to style the widths of the container:
 
 ```html title=mysite/templates/base.html
 <div class="container ph3 ph5-ns">
